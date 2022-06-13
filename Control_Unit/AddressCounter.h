@@ -51,13 +51,13 @@ SC_MODULE (scAddressCounter) {
 
     void function() {
         Val.write(1);
-        EOI_i0.write(0x0);
+        EOI_i0.write(0);
         while (1){
 
             if (RST.read() == true) {
                 Val.write(0);
             }
-            if (((waitMEM.read())==0)||((waitMEM.read()==1) && (memBusy.read()==0))){ //condition to enable the Address counter, else do nothing (?)
+            if ((waitMEM.read()==0)||((waitMEM.read()==1) && (memBusy.read()==0))){ //condition to enable the Address counter, else do nothing (?)
 
                 if(EOI.read()== 1){
                     Val.write(1);
@@ -72,9 +72,10 @@ SC_MODULE (scAddressCounter) {
                     }
                 }
             }
+        wait();
         }
 
-        wait();
+
     }
 
 };
