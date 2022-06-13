@@ -25,10 +25,10 @@ SC_MODULE (scInstruction) {
         sensitive << instruction;
     }
     void selection (){
-        func12_0.write((instruction.read().to_uint()&0x100000));
-        func7_5.write((instruction.read().to_uint()&0x40000000));
-        func3.write((instruction.read().to_uint()&0x7000));
-        opcode_6to2.write((instruction.read().to_uint()&0x7C));
+        func12_0.write((instruction.read().to_uint()& 0x100000)>>20);
+        func7_5.write((instruction.read().to_uint()& 0x40000000)>>30);
+        func3.write((instruction.read().to_uint()& 0x7000)>>12);
+        opcode_6to2.write((instruction.read().to_uint()& 0x7C)>>2);
     }
 };
 
