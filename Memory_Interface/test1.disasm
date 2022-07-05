@@ -1,0 +1,52 @@
+
+test1:     file format elf32-littleriscv
+
+
+Disassembly of section .text:
+
+00000000 <.text>:
+   0:	02c0006f          	j	0x2c
+   4:	ff810113          	addi	sp,sp,-8
+   8:	00c12223          	sw	a2,4(sp)
+   c:	00d12423          	sw	a3,8(sp)
+  10:	00160613          	addi	a2,a2,1
+  14:	00168693          	addi	a3,a3,1
+  18:	00d60533          	add	a0,a2,a3
+  1c:	00412603          	lw	a2,4(sp)
+  20:	00812683          	lw	a3,8(sp)
+  24:	00810113          	addi	sp,sp,8
+  28:	00008067          	ret
+  2c:	0ff00113          	li	sp,255
+  30:	00300293          	li	t0,3
+  34:	00128293          	addi	t0,t0,1
+  38:	08000397          	auipc	t2,0x8000
+  3c:	fc838393          	addi	t2,t2,-56 # 0x8000000
+  40:	0003a303          	lw	t1,0(t2)
+  44:	00530333          	add	t1,t1,t0
+  48:	00700613          	li	a2,7
+  4c:	00800693          	li	a3,8
+  50:	fb5ff0ef          	jal	ra,0x4
+  54:	00a30333          	add	t1,t1,a0
+  58:	0063a023          	sw	t1,0(t2)
+  5c:	0000006f          	j	0x5c
+
+Disassembly of section .data:
+
+08000000 <.data>:
+ 8000000:	000a                	c.slli	zero,0x2
+	...
+
+Disassembly of section .riscv.attributes:
+
+00000000 <.riscv.attributes>:
+   0:	1941                	addi	s2,s2,-16
+   2:	0000                	unimp
+   4:	7200                	flw	fs0,32(a2)
+   6:	7369                	lui	t1,0xffffa
+   8:	01007663          	bgeu	zero,a6,0x14
+   c:	0000000f          	fence	unknown,unknown
+  10:	7205                	lui	tp,0xfffe1
+  12:	3376                	fld	ft6,376(sp)
+  14:	6932                	flw	fs2,12(sp)
+  16:	7032                	flw	ft0,44(sp)
+  18:	0030                	addi	a2,sp,8
