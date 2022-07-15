@@ -1,10 +1,12 @@
+#ifndef AMBA_SLAVE_INSTRUCTIONMEM_H
+#define AMBA_SLAVE_INSTRUCTIONMEM_H
 #include <systemc.h>
 #include "IHex.cpp"
 #include "IHex.h"
-#ifndef AMBA_SLAVE_INSTRUCTIONMEM_H
-#define AMBA_SLAVE_INSTRUCTIONMEM_H
+#include "trace.h"
 
 SC_MODULE (scIMEM) {
+
     // ---------------------      Ports      ---------------------
 
     sc_in_clk            PCLK{"clock_i"};
@@ -16,31 +18,33 @@ SC_MODULE (scIMEM) {
 
     sc_out<sc_lv<32>>    PRDATA{"PRDATA"};
     sc_out<sc_lv<1>>     PREADY{"PREADY"};
-    sc_lv<8>    oct0{"oct0"};
+    /*sc_lv<8>    oct0{"oct0"};
     sc_lv<8>    oct1{"oct1"};
     sc_lv<8>    oct2{"oct2"};
-    sc_lv<8>    oct3{"oct3"};
-    //sc_lv<32>   pre;
+    sc_lv<8>    oct3{"oct3"};*/
 
-    sc_lv<32> contents [256]{"contents"};
+    sc_lv<32> contents [256]{"contents"};    
 
     typedef scIMEM SC_CURRENT_USER_MODULE;
     scIMEM(const char *fname, ::sc_core::sc_module_name = "")
     {
         IHex::IHexFile ihexfile(fname);
-        //ihexfile.hasError();
+        ihexfile.hasError();
         ihexfile.exportSystemC(0,256,contents);
 
         SC_THREAD(decodeHex);
         sensitive << PRSTn;
         sensitive << PCLK.pos();
+
         }
 
+
     void decodeHex() {
+        sc_trace(wf,PADDR,"PADDR");
         while (1){
 
             PREADY.write(PENABLE.read());
-
+#if 1
             if((PSEL.read()&0b1)==1){
                 PRDATA.write(0);
 
@@ -158,9 +162,12 @@ SC_MODULE (scIMEM) {
                 PRDATA.write(((oct3)<<0x18)|((oct2)<<0x10)|((oct1)<<0x8)|(oct1));
             }*/
             }
+#endif
         wait();
         }
     }
+
 };
+
 
 #endif // AMBA_SLAVE_INSTRUCTIONMEM_H

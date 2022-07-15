@@ -15,8 +15,11 @@ QMAKE_INCDIR += C:\Users\jmerc\Documents\RiscV\SystemC\include
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        IHex.cpp \
+        configengine.cpp \
         main.cpp \
-        test.cpp
+        test.cpp \
+        xmlucrom.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -25,19 +28,26 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     ALU.h \
+    ALU_register.h \
+    AMBA.h \
     AMBA_Slave1_dataMEM.h \
     AMBA_SlaveDecoder.h \
     AMBA_Slave_InstructionMem.h \
-    AMBA_master.h \
-    AMBA_selbits.h \
     AddressCounter.h \
+    B_PADDR.h \
+    B_PSTRB.h \
+    B_PWDATA.h \
+    B_PWRITE.h \
+    B_STATEMACHINE.h \
+    B_rdata_o.h \
+    Control_Unit.h \
     IHex.h \
     IMMEDIATE.h \
+    IMM_IR_CU.h \
     IR.h \
     InstrNumber.h \
     Instruction.h \
     MI_AND.h \
-    MI_CPUside.h \
     MI_IMEM_contents.h \
     MI_ORbytestrb.h \
     MI_ORtrigger.h \
@@ -47,17 +57,22 @@ HEADERS += \
     MI_half_extend.h \
     MI_plus_PADDR.h \
     MI_registre.h \
-    MI_select_bits.h \
     MI_shift_left.h \
     MI_shift_right.h \
-    MI_size_strobes.h \
+    MI_sizestrobes.h \
     MI_zeroextend.h \
+    Memory_Interface.h \
     PC.h \
+    PCregister.h \
     ROMData_to_input.h \
     ROMmem.h \
+    RV_1.h \
     Regfile.h \
     SelRI_value.h \
     TargetAdd.h \
+    configengine.h \
     mux2to1.h \
     mux3to1.h \
-    mux4to1.h
+    mux4to1.h \
+    trace.h \
+    xmlucrom.h

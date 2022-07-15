@@ -14,6 +14,8 @@
 #ifndef ROMMEM_H
 #define ROMMEM_H
 #include <systemc.h>
+#include "xmlucrom.h"
+//#include "xmlucrom.cpp"
 
 SC_MODULE (scROM_Memory) {
     // ---------------------      Ports      ---------------------
@@ -25,16 +27,27 @@ SC_MODULE (scROM_Memory) {
 
     sc_out<sc_lv<32>>    Data {"Data_uINSTR_control_signals"};
 
-    sc_lv<32>  ROMtab[256];
+    sc_lv<32>  ROMtab[256]{"ROMtab"};
 
 
-    SC_CTOR(scROM_Memory) {
+    typedef scROM_Memory SC_CURRENT_USER_MODULE;
+    scROM_Memory(const char *fname, ::sc_core::sc_module_name = "")
+    {
+        xmlUCRom xmlfile;
+        xmlfile.readXML(fname);
+        xmlfile.hasError();
+        xmlfile.exportSystemC(ROMtab,0,256);
+
         SC_THREAD(function);
         sensitive << clock.pos();
-
         }
 
-    void function() {
+    /*SC_CTOR(scROM_Memory){
+        SC_THREAD(function);
+        sensitive << clock.pos();
+    }*/
+
+    void function() {/*
         ROMtab[0x0]=0x04;
         ROMtab[0x1]=0x40000011;
         ROMtab[0x2]=0x80000000;
@@ -53,7 +66,7 @@ SC_MODULE (scROM_Memory) {
         ROMtab[0xF]=0x80000000;
         for (int i=16;i<256; i++){
             ROMtab[i]=0x80000000; //même valeur que pour FENCE pour l'instant,pour tester
-        }
+        }*/
         while (1){
             //first check if enabled or not
             if (((waitMEM.read())==0)||((waitMEM.read()==1) && (memBusy.read()==0))){

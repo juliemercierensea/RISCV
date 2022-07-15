@@ -1,8 +1,8 @@
 #include <systemc.h>
 #ifndef AMBA_SELBITS_H
 #define AMBA_SELBITS_H
-
-SC_MODULE (scSel) {
+#include <systemc.h>
+SC_MODULE (scSelAMBA) {
     // ---------------------      Ports      ---------------------
 
     sc_in<sc_lv<32>>        PADDR{"address"};
@@ -14,7 +14,7 @@ SC_MODULE (scSel) {
     sc_out<sc_lv<4>>        reg_bytestrb_output_7to4{"reg_bytestrb_output_7to4"};
 
 
-    SC_CTOR(scSel) {
+    SC_CTOR(scSelAMBA) {
         SC_THREAD(select);
         }
 

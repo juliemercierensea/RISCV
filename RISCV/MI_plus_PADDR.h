@@ -7,7 +7,6 @@ SC_MODULE (scPlus) {
 
     sc_in<sc_lv<30>>    in_up{"in_up"};
     sc_out<sc_lv<30>>   out{"out"};
-    sc_out<sc_lv<1>>    one{"one"};
 
     SC_CTOR(scPlus) {
         SC_THREAD(operation);
@@ -16,7 +15,7 @@ SC_MODULE (scPlus) {
     void operation() {
         while (1){
             out.write(in_up.read().to_uint()+0x1);
-            one.write(1);
+
         wait();
         }
     }

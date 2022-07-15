@@ -16,7 +16,7 @@ SC_MODULE (scOR) {
 
     void logicOR() {
         while (1){
-            if((bytestrb_7to4.read().to_uint()|0b1111)==!0){
+            if(bytestrb_7to4.read().to_uint()!=0){
                out.write(1);
             }
                else {

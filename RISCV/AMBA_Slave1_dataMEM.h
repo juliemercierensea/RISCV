@@ -1,6 +1,7 @@
-#include <systemc.h>
+
 #ifndef AMBA_SLAVE1_DATAMEM_H
 #define AMBA_SLAVE1_DATAMEM_H
+#include <systemc.h>
 
 SC_MODULE (scSlave1) {
     // ---------------------      Ports      ---------------------
