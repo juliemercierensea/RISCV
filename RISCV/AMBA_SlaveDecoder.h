@@ -1,6 +1,7 @@
-#include <systemc.h>
 #ifndef AMBA_SLAVEDECODER_H
 #define AMBA_SLAVEDECODER_H
+#include <systemc.h>
+#include "trace.h"
 
 SC_MODULE (scDecoder) {
 
@@ -33,7 +34,7 @@ SC_MODULE (scDecoder) {
         SAmasks[1]=0b11110000;
         SAmasks[2]=0b11110000;
 
-        //store_add=(address.read().to_uint()& 0b1111)>>0x4;
+        //store_add=(address.read().to_uint()& 0b1111)>>0x4);
 
         while (1){
             int i=0;

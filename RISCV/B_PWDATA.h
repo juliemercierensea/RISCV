@@ -6,6 +6,7 @@
 #include "mux4to1.h"
 #include "MI_registre.h"
 #include "mux2to1.h"
+#include "trace.h"
 
 SC_MODULE(blocPWDATA){
 
@@ -35,7 +36,6 @@ SC_MODULE(blocPWDATA){
     sc_signal<sc_lv<32>>    regtomux64_63to32{"regtomux_63to32"};
     sc_signal<sc_lv<32>>    muxwdata_to_PWDATA{"muxwdata_to_PDATA"};
     sc_signal<sc_lv<64>>    WDATA64{"WDATA64"};
-    sc_signal<sc_lv<32>>    wdata_31to0{"wdata_31to0"};
     sc_signal<sc_lv<32>>    wdata64_31to0{"wdata64_31to0"};
 
 
@@ -68,19 +68,41 @@ SC_MODULE(blocPWDATA){
         muxwdata.sel(op2);
 
         muxPWDATA.i0(muxwdata_to_PWDATA);
-        muxPWDATA.i1(wdata_31to0);
+        muxPWDATA.i1(wdata64_31to0);
         muxPWDATA.res(PWDATA);
         muxPWDATA.sel(first_cycle);
 
         SC_THREAD(sel);
         sensitive<<WDATA64;
         sensitive << regtomux64;
+
+        wf= sc_create_vcd_trace_file("itest_BPWDATA");
+
+        sc_trace(wf,clock,"clock");
+        sc_trace(wf,wdata_i,"wdata_i");
+        sc_trace(wf,ALIGNMENT,"ALIGNMENT");
+        sc_trace(wf,first_cycle,"first_cycle");
+        sc_trace(wf,op2,"op2");
+        sc_trace(wf,PWDATA,"PWDATA");
+        sc_trace(wf,zerotomux,"zerotomux");
+        sc_trace(wf,out8tomux,"out8tomux");
+        sc_trace(wf,out16tomux,"out16tomux");
+        sc_trace(wf,out24tomux,"out24tomux");
+        sc_trace(wf,regtomux64,"regtomux64");
+        sc_trace(wf,regtomux64_31to0,"regtomux64_31to0");
+        sc_trace(wf,regtomux64_63to32,"regtomux64_63to32");
+        sc_trace(wf,muxwdata_to_PWDATA,"muxwdata_to_PWDATA");
+        sc_trace(wf,WDATA64,"WDATA64");
+        sc_trace(wf,wdata64_31to0,"wdata64_31to0");
     }
     void sel(){
-        wdata64_31to0.write(WDATA64.read().to_uint()& 0b11111111111111111111111111111111);
+        while(1){
+            wdata64_31to0.write(WDATA64.read().to_uint()& 0b11111111111111111111111111111111);
 
-        regtomux64_63to32.write((regtomux64.read()&0b1111111111111111111111111111111100000000000000000000000000000000)>>0x20);
-        regtomux64_31to0.write(regtomux64.read()&0b11111111111111111111111111111111);
+            regtomux64_63to32.write((regtomux64.read()&0b1111111111111111111111111111111100000000000000000000000000000000)>>0x20);
+            regtomux64_31to0.write(regtomux64.read()&0b11111111111111111111111111111111);
+            wait();
+        }
     }
 };
 

@@ -1,6 +1,7 @@
-#include<systemc.h>
 #ifndef MI_ORTRIGGER_H
 #define MI_ORTRIGGER_H
+#include<systemc.h>
+#include "trace.h"
 
 SC_MODULE (scORTRG) {
     // ---------------------      Ports      ---------------------
@@ -11,12 +12,13 @@ SC_MODULE (scORTRG) {
 
     SC_CTOR(scORTRG) {
         SC_THREAD(logicOR);
+        sensitive<<rd_i;
+        sensitive<<wr_i;
         }
 
     void logicOR() {
         while (1){
-            trigger.write(rd_i.read()|wr_i.read());
-
+            trigger.write(rd_i.read().to_int()|wr_i.read().to_int());
         wait();
         }
     }

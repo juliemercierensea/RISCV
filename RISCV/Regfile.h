@@ -57,7 +57,7 @@ SC_MODULE (scRegfile) {
     void store () {
         while(1){
 
-            if (reset.read() == true) {
+            if (reset.read() == 0) {
 
                 for (int i=0;i<=31; i++){
                     value[i]=0;

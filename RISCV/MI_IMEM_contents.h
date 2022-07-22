@@ -1,9 +1,9 @@
-#include <systemc.h>
+
 #ifndef MI_IMEM_CONTENTS_H
 #define MI_IMEM_CONTENTS_H
 #include "IHex.h"
 #include "IHex.cpp"
-
+#include <systemc.h>
 SC_MODULE (scIMEM) {
     sc_lv<32> contents [256];
 

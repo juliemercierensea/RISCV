@@ -1,6 +1,7 @@
-#include <systemc.h>
+
 #ifndef MI_STATEOUTPUT_H
 #define MI_STATEOUTPUT_H
+#include <systemc.h>
 
 SC_MODULE (scStateOutput) {
     // ---------------------      Ports      ---------------------

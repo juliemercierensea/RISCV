@@ -1,6 +1,7 @@
-#include <systemc.h>
+
 #ifndef MI_SIZESTROBES_H
 #define MI_SIZESTROBES_H
+#include <systemc.h>
 
 SC_MODULE (scSizeStrobes) {
     sc_in<sc_lv<2>>     size{"size"};

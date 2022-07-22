@@ -14,7 +14,7 @@
 
 SC_MODULE (scSelectfromROMData) {
 
-    sc_in<sc_lv<32>>     ROMData{"ROMData"};
+    sc_in<sc_lv<32>>        ROMData{"ROMData"};
 
     sc_out<sc_lv<1>>        waitMEM_o{"waitMEM_o"};
     sc_out<sc_lv<1>>        IDMEM{"IDMEM"};

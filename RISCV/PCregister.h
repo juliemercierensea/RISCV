@@ -23,10 +23,11 @@ SC_MODULE (scPCregister) {
     sc_out<sc_lv<32>>    Count{"Count_o"};
 
     SC_CTOR(scPCregister) {
-        SC_THREAD(PClogic);
 
+        SC_THREAD(PClogic);
         sensitive << clock.pos();
         sensitive << RST;
+        sensitive<<Inc;
     }
 
     void PClogic() {
@@ -34,17 +35,19 @@ SC_MODULE (scPCregister) {
         while(1){
             Count.write(0); //on initialise
 
-            if (RST.read() == true) {
+            if (RST.read() == 0) {
                 Count.write(0); // on réinitialise
             }
+            else{
 
-            if(Inc.read()==1){//on fait +4 tant que Inc=1
-                Count.write(Count.read().to_uint()+4);
-                }
+                if(Inc.read()==1){//on fait +4 tant que Inc=1
+                    Count.write(Count.read().to_uint()+4);
+                    }
 
-            else {
-                if(Load==1){
-                    Count.write(LoadVal);
+                else {
+                    if(Load==1){
+                        Count.write(LoadVal);
+                    }
                 }
             }
             wait();

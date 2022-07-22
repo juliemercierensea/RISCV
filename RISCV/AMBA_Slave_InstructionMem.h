@@ -1,7 +1,7 @@
 #ifndef AMBA_SLAVE_INSTRUCTIONMEM_H
 #define AMBA_SLAVE_INSTRUCTIONMEM_H
 #include <systemc.h>
-#include "IHex.cpp"
+//#include "IHex.cpp"
 #include "IHex.h"
 #include "trace.h"
 
@@ -10,20 +10,15 @@ SC_MODULE (scIMEM) {
     // ---------------------      Ports      ---------------------
 
     sc_in_clk            PCLK{"clock_i"};
-    sc_in<bool>          PRSTn{"Preset"}; //active-LOW reset
-    sc_in<sc_lv<32>>     PADDR{"PADDR"};
+    sc_in<sc_lv<8>>      PADDR{"PADDR"};
     sc_in<sc_lv<4>>      PSTRB{"PSTRB"};
     sc_in<sc_lv<1>>      PENABLE{"PENABLE_super"};
     sc_in<sc_lv<2>>      PSEL{"PSEL"};
 
     sc_out<sc_lv<32>>    PRDATA{"PRDATA"};
     sc_out<sc_lv<1>>     PREADY{"PREADY"};
-    /*sc_lv<8>    oct0{"oct0"};
-    sc_lv<8>    oct1{"oct1"};
-    sc_lv<8>    oct2{"oct2"};
-    sc_lv<8>    oct3{"oct3"};*/
 
-    sc_lv<32> contents [256]{"contents"};    
+    sc_lv<32> contents [256]{"contents"};
 
     typedef scIMEM SC_CURRENT_USER_MODULE;
     scIMEM(const char *fname, ::sc_core::sc_module_name = "")
@@ -33,17 +28,24 @@ SC_MODULE (scIMEM) {
         ihexfile.exportSystemC(0,256,contents);
 
         SC_THREAD(decodeHex);
-        sensitive << PRSTn;
         sensitive << PCLK.pos();
 
+        wf= sc_create_vcd_trace_file("IMEM");
+        sc_trace(wf,PCLK,"PCLK");
+        sc_trace(wf,PADDR,"PADDR");
+        sc_trace(wf,PSTRB,"PSTRB");
+        sc_trace(wf,PENABLE,"PENABLE");
+        sc_trace(wf,PSEL,"PSEL");
+        sc_trace(wf,PRDATA,"PRDATA");
+        sc_trace(wf,PREADY,"PREADY");
         }
 
 
     void decodeHex() {
-        sc_trace(wf,PADDR,"PADDR");
         while (1){
 
             PREADY.write(PENABLE.read());
+
 #if 1
             if((PSEL.read()&0b1)==1){
                 PRDATA.write(0);
@@ -86,7 +88,7 @@ SC_MODULE (scIMEM) {
                                                 else{
                                                     if(PSTRB.read()==0b1001){
                                                         PRDATA.write((contents[PADDR.read().to_uint()])&0b11111111000000000000000011111111);
-                                                    }//COUCOU
+                                                    }
                                                     else{
                                                         if(PSTRB.read()==0b1010){
                                                             PRDATA.write((contents[PADDR.read().to_uint()])&0b11111111000000001111111100000000);
@@ -126,42 +128,9 @@ SC_MODULE (scIMEM) {
                         }
                     }
                 }
-
-                /*if((PSTRB.read()&0b0001)==1){
-                    oct0=((contents[PADDR.read().to_uint()])&0b00000000000000000000000011111111);
-                }
-                else{
-                    if((PSTRB.read()&0b0001)==0){
-                        oct0=0;
-                    }
-                }
-                if((PSTRB.read()&0b0010)==1){
-                    oct1=((contents[PADDR.read().to_uint()])&0b00000000000000001111111100000000);
-                }
-                else{
-                    if((PSTRB.read()&0b0010)==0){
-                        oct1=0;
-                    }
-                }
-                if((PSTRB.read()&0b0100)==1){
-                    oct2=((contents[PADDR.read().to_uint()])&0b00000000111111110000000000000000);
-                }
-                else{
-                    if((PSTRB.read()&0b0100)==0){
-                        oct2=0;
-                    }
-                }
-                if((PSTRB.read()&0b1000)==1){
-                    oct3=((contents[PADDR.read().to_uint()])&0b11111111000000000000000000000000);
-                }
-                else{
-                    if((PSTRB.read()&0b1000)==0){
-                        oct3=0;
-                    }
-                }
-                PRDATA.write(((oct3)<<0x18)|((oct2)<<0x10)|((oct1)<<0x8)|(oct1));
-            }*/
             }
+
+
 #endif
         wait();
         }

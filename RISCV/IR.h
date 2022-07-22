@@ -20,9 +20,9 @@ SC_MODULE(IR) {
 
     void combinational () {
         while (1){
-        if (((wIR.read())&(~memBusy.read()))==1) {
-            Val.write(LoadVal.read());
-        }
+            if (((wIR.read())&(~memBusy.read()))==1) {
+                Val.write(LoadVal.read());
+            }
         wait();
         }
     }

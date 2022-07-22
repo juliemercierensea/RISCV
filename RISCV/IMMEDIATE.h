@@ -1,6 +1,6 @@
-#include <systemc.h>
 #ifndef IMMEDIATE_H
 #define IMMEDIATE_H
+#include <systemc.h>
 
 SC_MODULE (scIMMEDIATE) {
     sc_out<sc_lv<32>>     I{"I"};
@@ -13,14 +13,15 @@ SC_MODULE (scIMMEDIATE) {
 
     SC_CTOR(scIMMEDIATE) {
         SC_THREAD(store);
+        sensitive<<RI;
     }
     void store () {
         while(1){
-            I.write((RI.read()& 0b11111111111)<<0x14);
+            I.write((RI.read()& 0b111111111111)<<0x14);
             S.write(((RI.read()&0b111111100000)<<0x14)|((RI.read()&0b11111)<<0x7));
             B.write(((RI.read()&0b1000000000000)<<0x13)|((RI.read()&0b11111100000)<<0x14)|((RI.read()&0b11110)<<0x7)|((RI.read()&0b100000000000)>>0x4));
             U.write(RI.read()&0b11111111111111111111000000000000);
-            J.write(((RI.read()&0b100000000000000000000)<<0xB)|((RI.read()&11111111110)<<0x14)|((RI.read()&0b100000000000)<<0x9)|(RI.read()&0b11111111000000000000));
+            J.write(((RI.read()&0b100000000000000000000)<<0xB)|((RI.read()&0b11111111110)<<0x14)|((RI.read()&0b100000000000)<<0x9)|(RI.read()&0b11111111000000000000));
             wait();
         }
     }

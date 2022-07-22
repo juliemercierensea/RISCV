@@ -22,7 +22,7 @@ SC_MODULE (scInstrNumber) {
     sc_in<sc_lv<3>>     func3{"func3"};
     sc_in<sc_lv<5>>     opcode_6to2{"opcode_6to2"};
 
-    sc_out<sc_lv<8>>     number{"number"};
+    sc_out<sc_lv<8>>    number{"number"};
 
     SC_CTOR(scInstrNumber) {
         SC_THREAD(instruction);

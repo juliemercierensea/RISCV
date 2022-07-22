@@ -27,6 +27,7 @@
 #define ALU_REGISTER_H
 
 #include <systemc.h>
+#include "trace.h"
 
 SC_MODULE (scALUreg) {
     // ---------------------      Ports      ---------------------

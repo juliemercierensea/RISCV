@@ -1,6 +1,7 @@
-#include <systemc.h>
+
 #ifndef MI_STATEMACHINE_H
 #define MI_STATEMACHINE_H
+#include <systemc.h>
 
 SC_MODULE (scState) {
     // ---------------------      Ports      ---------------------
@@ -29,7 +30,7 @@ SC_MODULE (scState) {
             notPREADY.write(~PREADY.read());
             unaligned_or_notPREADY.write(unaligned.read()|notPREADY.read());
 
-            if(RST==1){     //stOp1A
+            if(RST==0){     //stOp1A
                 CurrentState.write(0);
             }
             else{

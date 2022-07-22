@@ -12,6 +12,7 @@
 #include "B_rdata_o.h"
 #include"B_STATEMACHINE.h"
 #include"MI_ORtrigger.h"
+#include "trace.h"
 
 #include "IHex.h"
 
@@ -38,16 +39,16 @@ SC_MODULE (scMemory_Interface) {
     sc_out<sc_lv<32>>   rdata_o{"rdata_o"};
     sc_out<sc_lv<32>>   rdata_unbuff_o{"rdata_unbuff_o"};
 
-    registre<2>     ALIGNMENT_reg {"MemInt_ALIGNMENT"};
-    mux4to1<1>      muxbusy_o{"MemInt_Busy_o"};
-    mux2to1<1>      muxPREQ {"MemInt_muxPREQ"};
-    scORTRG         ortrg {"MemInt_ORTRG"};
-    blocPADDR       blocPADDR{"blocPADDR"};
-    blocPSTRB       blocPSTRB{"blocPSTRB"};
-    blocPWDATA      blocPWDATA{"blocPWDATA"};
-    blocPWRITE      blocPWRITE{"blocPWRITE"};
-    blocRdata_o     blocRdata_o{"blocRdata_o"};
-    blocSTATEMACHINE blocSTATEMACHINE {"blocSTATEMACHINE"};
+    registre<2>         ALIGNMENT_reg {"MemInt_ALIGNMENT"};
+    mux4to1<1>          muxbusy_o{"MemInt_Busy_o"};
+    mux2to1<1>          muxPREQ {"MemInt_muxPREQ"};
+    scORTRG             ortrg {"MemInt_ORTRG"};
+    blocPADDR           blocPADDR{"blocPADDR"};
+    blocPSTRB           blocPSTRB{"blocPSTRB"};
+    blocPWDATA          blocPWDATA{"blocPWDATA"};
+    blocPWRITE          blocPWRITE{"blocPWRITE"};
+    blocRdata_o         blocRdata_o{"blocRdata_o"};
+    blocSTATEMACHINE    blocSTATEMACHINE {"blocSTATEMACHINE"};
 
     sc_signal<sc_lv<1>>     op1{"op1"};
     sc_signal<sc_lv<1>>     op2{"op2"};
@@ -136,19 +137,56 @@ SC_MODULE (scMemory_Interface) {
         blocSTATEMACHINE.preq_sel(preq_sel);
         blocSTATEMACHINE.PENABLE(PENABLE);
 
-        //selbits.paddr30(PADDR30);
-        //selbits.paddr32(PADDR);
-
         SC_THREAD(internalsignals);
         sensitive << PREADY;
         sensitive <<PADDR30;
+        sensitive<<unaligned;
+        sensitive<<notPREADY;
+
+        wf= sc_create_vcd_trace_file("itest_MemInt");
+        sc_trace(wf,clock,"clock");
+        sc_trace(wf,RST,"RST");
+        sc_trace(wf,PRDATA,"PRDATA");
+        sc_trace(wf,PREADY,"PREADY");
+        sc_trace(wf,rd_i,"rd_i");
+        sc_trace(wf,wr_i,"wr_i");
+        sc_trace(wf,addr_i,"addri_");
+        sc_trace(wf,size_i,"size_i");
+        sc_trace(wf,unsigned_i,"unsigned_i");
+        sc_trace(wf,wdata_i,"wdata_i");
+        sc_trace(wf,PADDR,"PADDR");
+        sc_trace(wf,PSTRB,"PSTRB");
+        sc_trace(wf,PWDATA,"PWDATA");
+        sc_trace(wf,PWRITE,"PWRITE");
+        sc_trace(wf,PENABLE,"PENABLE");
+        sc_trace(wf,PREQ,"PREQ");
+        sc_trace(wf,busy_o,"busy_o");
+        sc_trace(wf,rdata_o,"rdata_o");
+        sc_trace(wf,rdata_unbuff_o,"rdata_unbff_o");
+
+        sc_trace(wf,op1,"op1");
+        sc_trace(wf,op2,"op2");
+        sc_trace(wf,first_cycle,"first_cycle");
+        sc_trace(wf,busy_sel,"busy_sel");
+        sc_trace(wf,preq_sel,"preq_sel");
+        sc_trace(wf,trigger,"trigger");
+        sc_trace(wf,unaligned,"unaligned");
+        sc_trace(wf,ALIGNMENT,"ALIGNMENT");
+        sc_trace(wf,ALIGNMENT_REG,"ALIGNMENT_REG");
+        sc_trace(wf,one,"one");
+        sc_trace(wf,notPREADY,"notPREADY");
+        sc_trace(wf,unaligned_or_notPREADY,"unaligned_or_notPREADY");
+        sc_trace(wf,PADDR30,"PADDR30");
 
             }
     void internalsignals(){
-        one.write(0x1);
-        notPREADY.write(~PREADY.read());
-        unaligned_or_notPREADY.write((unaligned.read()|notPREADY.read()));
-        PADDR.write(PADDR30.read());
+        while(1){
+            one.write(0x1);
+            notPREADY.write(~PREADY.read());
+            unaligned_or_notPREADY.write((unaligned.read()|notPREADY.read()));
+            PADDR.write(PADDR30.read());
+            wait();
+        }
     }
 
 };

@@ -4,6 +4,7 @@
 #include "MI_registre.h"
 #include "mux2to1.h"
 #include "MI_plus_PADDR.h"
+#include "trace.h"
 
 SC_MODULE(blocPADDR){
 
@@ -23,9 +24,7 @@ SC_MODULE(blocPADDR){
     sc_signal<sc_lv<30>>    WORDADDR{"WORDADDR"};
     sc_signal<sc_lv<30>>    regtomuxPADDR{"regtomuxPADDR"};
     sc_signal<sc_lv<30>>    plustomux{"plustomux"};
-    sc_signal<sc_lv<1>>     one{"one"};
     sc_signal<sc_lv<30>>    muxtoPADDR{"muxtoPADDR"};
-
 
     SC_CTOR(blocPADDR){
         regPADDR.d(WORDADDR);
@@ -46,14 +45,29 @@ SC_MODULE(blocPADDR){
         muxPADDR.sel(first_cycle);
         muxPADDR.res(PADDR30);
 
+        wf= sc_create_vcd_trace_file("itest_BPADDR");
+
+        sc_trace(wf,clock,"clock");
+        sc_trace(wf,addr_i,"addr_i");
+        sc_trace(wf,ALIGNMENT,"ALIGNMENT");
+        sc_trace(wf,first_cycle,"first_cycle");
+        sc_trace(wf,op2,"op2");
+        sc_trace(wf,PADDR30,"PADDR");
+        sc_trace(wf,WORDADDR,"WORDADDR");
+        sc_trace(wf,regtomuxPADDR,"regtomuxPADDR");
+        sc_trace(wf,plustomux,"plustomux");
+        sc_trace(wf,muxtoPADDR,"muxtoPADDR");
 
         SC_THREAD(sel);
         sensitive <<addr_i;
 
     }
     void sel(){
-        WORDADDR.write(((addr_i.read().to_uint())&0b11111111111111111111111111111110)>>0x2);
-        ALIGNMENT.write(addr_i.read().to_uint()&0b11);
+        while(1){
+            WORDADDR.write((addr_i.read().to_int()&0b1111111111111111111111111111111100)>>0x2);
+            ALIGNMENT.write(addr_i.read().to_uint()&0b11);
+            wait();
+        }
     }
 };
 

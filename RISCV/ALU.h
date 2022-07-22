@@ -4,6 +4,7 @@
 #include "ALU_register.h"
 #include "mux2to1.h"
 #include "mux4to1.h"
+#include "trace.h"
 
 SC_MODULE(scALU){
     sc_in<sc_lv<4>>   selopALU{"selopALU"};

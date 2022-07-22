@@ -3,6 +3,7 @@
 #include <systemc.h>
 #include "MI_registre.h"
 #include "mux2to1.h"
+#include "trace.h"
 
 SC_MODULE(blocPWRITE){
 
@@ -29,6 +30,14 @@ SC_MODULE(blocPWRITE){
         muxPWRITE.i1(wr_i);
         muxPWRITE.sel(first_cycle);
         muxPWRITE.res(PWRITE);
+
+        wf= sc_create_vcd_trace_file("test_PWRITE");
+
+        sc_trace(wf,clock,"clock");
+        sc_trace(wf,first_cycle,"first_cycle");
+        sc_trace(wf,wr_i,"wr_i");
+        sc_trace(wf,PWRITE,"PWRITE");
+        sc_trace(wf,reg_to_mux,"regtomux");
 
     }
 };

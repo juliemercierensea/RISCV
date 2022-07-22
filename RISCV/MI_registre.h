@@ -1,6 +1,7 @@
-#include <systemc.h>
+
 #ifndef MI_REGISTRE_H
 #define MI_REGISTRE_H
+#include <systemc.h>
 
 template <unsigned int N=32>
 class registre : public ::sc_core::sc_module {

@@ -25,7 +25,7 @@ SC_MODULE(AMBA){
     sc_signal<sc_lv<32>>    PRDATA1{"PRDATA1"};
     sc_signal<sc_lv<1>>     PREADY1{"PREADY1"};
     sc_signal<sc_lv<32>>    PADDR{"PADDR"};
-    sc_signal<sc_lv<32>>    PADDR8{"PADDR8"};
+    sc_signal<sc_lv<8>>     PADDR8{"PADDR8"};
     sc_signal<sc_lv<4>>     PSTRB{"PSTRB"};
     sc_signal<sc_lv<32>>    PWDATA{"PWDATA"};
     sc_signal<sc_lv<1>>     PWRITE{"PWRITE"};
@@ -50,7 +50,6 @@ SC_MODULE(AMBA){
         RV1.PREQ(PREQ);
 
         IMEM.PCLK(clock);
-        IMEM.PRSTn(RST);
         IMEM.PADDR(PADDR8);
         IMEM.PSTRB(PSTRB);
         IMEM.PENABLE(PENABLE);
@@ -75,11 +74,14 @@ SC_MODULE(AMBA){
 
         SC_THREAD(select_int_sig);
         sensitive<<PADDR;
-
     }
+
     void select_int_sig(){
-        PADDR8.write(PADDR.read()&0b11111111);
-        highAPADDR.write((PADDR.read()&0b11111111000000000000000000000000)>>0x24);
+        while(1){
+            PADDR8.write(PADDR.read()&0b11111111);
+            highAPADDR.write((PADDR.read()&0b11111111000000000000000000000000)>>0x24);
+            wait();
+        }
     }
 };
 

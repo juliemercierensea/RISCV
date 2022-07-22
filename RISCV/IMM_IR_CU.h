@@ -6,11 +6,11 @@
 #include "IMMEDIATE.h"
 #include "Control_Unit.h"
 #include "IR.h"
-#include "SelRI_value.h"
+#include "trace.h"
 
 SC_MODULE(scIMM_IR_CU){
     sc_in_clk            clock{"clock"};
-    sc_in<sc_lv<32>>     rdata_unbuff_o{"rdata_unbuff_o"};
+    sc_in<sc_lv<32>>     Value_from_IMEM{"Value_from_IMEM"};
     sc_in<sc_lv<1>>      memBusy{"memBusy"};
     sc_in<bool>          RST{"RST"};
 
@@ -24,30 +24,29 @@ SC_MODULE(scIMM_IR_CU){
     sc_out<sc_lv<5>>     rd{"rd"};
     sc_out<sc_lv<3>>     func3{"func3"};
 
-    sc_out<sc_lv<1>>    sel1PC;
-    sc_out<sc_lv<1>>    sel2PC;
-    sc_out<sc_lv<1>>    iPC;
-    sc_out<sc_lv<1>>    wRD;
-    sc_out<sc_lv<1>>    selRD;
-    sc_out<sc_lv<1>>    sel1ALU;
-    sc_out<sc_lv<2>>    sel2ALU;
-    sc_out<sc_lv<4>>    selopALU;
+    sc_out<sc_lv<1>>    sel1PC{"sel1PC"};
+    sc_out<sc_lv<1>>    sel2PC{"sel2PC"};
+    sc_out<sc_lv<1>>    iPC{"iPC"};
+    sc_out<sc_lv<1>>    wRD{"wRD"};
+    sc_out<sc_lv<1>>    selRD{"selRD"};
+    sc_out<sc_lv<1>>    sel1ALU{"sel1ALU"};
+    sc_out<sc_lv<2>>    sel2ALU{"sel2ALU"};
+    sc_out<sc_lv<4>>    selopALU{"selopALU"};
     sc_out<sc_lv<1>>    wIR{"wIR"};
-    sc_out<sc_lv<1>>    RDMEM;
-    sc_out<sc_lv<1>>    WRMEM;
-    sc_out<sc_lv<1>>    IDMEM;
+    sc_out<sc_lv<1>>    RDMEM{"RDMEM"};
+    sc_out<sc_lv<1>>    WRMEM{"WRMEM"};
+    sc_out<sc_lv<1>>    IDMEM{"IDMEM"};
 
     scControl_Unit  Control_Unit{"ControlUnit"};
     IR              IR {"IR"};
     scIMMEDIATE     IMM {"IMM"};
-    scSelRI         selRI {"selRI"};
 
     sc_signal<sc_lv<32>>    RI_value{"RI_value"};
 
 
     SC_CTOR(scIMM_IR_CU){
         IR.Val(RI_value);
-        IR.LoadVal(rdata_unbuff_o);
+        IR.LoadVal(Value_from_IMEM);
         IR.clock(clock);
         IR.wIR(wIR);
         IR.memBusy(memBusy);
@@ -59,15 +58,9 @@ SC_MODULE(scIMM_IR_CU){
         IMM.J(J_imm);
         IMM.U(U_imm);
 
-        selRI.RI(RI_value);
-        selRI.rs1(rs1);
-        selRI.rs2(rs2);
-        selRI.rd(rd);
-        selRI.func3(func3);
-
         Control_Unit.clock(clock);
         Control_Unit.RST(RST);
-        Control_Unit.instruction(rdata_unbuff_o);
+        Control_Unit.instruction(Value_from_IMEM);
         Control_Unit.memBusy(memBusy);
         Control_Unit.sel1PC(sel1PC);
         Control_Unit.sel2PC(sel2PC);
@@ -81,6 +74,19 @@ SC_MODULE(scIMM_IR_CU){
         Control_Unit.RD(RDMEM);
         Control_Unit.WR(WRMEM);
         Control_Unit.IDMEM(IDMEM);
+
+        SC_THREAD(select);
+        sensitive<<RI_value;
+    }
+
+    void select(){
+        while(1){
+            func3.write((RI_value.read()&0b111000000000000)>>0xC);
+            rs1.write((RI_value.read()&0b11111000000000000000)>>0xF);
+            rs2.write((RI_value.read()&0b1111100000000000000000000)>>0x14);
+            rd.write((RI_value.read()&0b111110000000)>>0x7);
+            wait();
+        }
     }
 };
 

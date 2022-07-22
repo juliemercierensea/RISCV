@@ -15,20 +15,21 @@
 #define ROMMEM_H
 #include <systemc.h>
 #include "xmlucrom.h"
+#include "trace.h"
 //#include "xmlucrom.cpp"
 
 SC_MODULE (scROM_Memory) {
     // ---------------------      Ports      ---------------------
 
     sc_in_clk           clock{"clock_i"};
+    sc_in<bool>         RST{"reset"};
     sc_in<sc_lv<8>>     Address {"uADDR_i"};
     sc_in<sc_lv<1>>     waitMEM{"waitMEM"};
     sc_in<sc_lv<1>>     memBusy{"memBusy"};
 
-    sc_out<sc_lv<32>>    Data {"Data_uINSTR_control_signals"};
+    sc_out<sc_lv<32>>   ROMData {"ROMData_uINSTR"};
 
     sc_lv<32>  ROMtab[256]{"ROMtab"};
-
 
     typedef scROM_Memory SC_CURRENT_USER_MODULE;
     scROM_Memory(const char *fname, ::sc_core::sc_module_name = "")
@@ -40,12 +41,9 @@ SC_MODULE (scROM_Memory) {
 
         SC_THREAD(function);
         sensitive << clock.pos();
-        }
+        sensitive<< RST;
 
-    /*SC_CTOR(scROM_Memory){
-        SC_THREAD(function);
-        sensitive << clock.pos();
-    }*/
+        }
 
     void function() {/*
         ROMtab[0x0]=0x04;
@@ -69,8 +67,14 @@ SC_MODULE (scROM_Memory) {
         }*/
         while (1){
             //first check if enabled or not
-            if (((waitMEM.read())==0)||((waitMEM.read()==1) && (memBusy.read()==0))){
-                Data.write(ROMtab[Address.read().to_uint()]);
+            if(RST==0){         //low active reset
+                ROMData.write(0);
+            }
+            else{
+                    if (((waitMEM.read())==0)||((waitMEM.read()==1) && (memBusy.read()==0))){
+                        ROMData.write(ROMtab[Address.read().to_int()]);
+                        //ROMData.write(0x1);
+                    }
             }
             wait();
         }

@@ -22,6 +22,7 @@
 #ifndef ADDRESSCOUNTER_H
 #define ADDRESSCOUNTER_H
 #include <systemc.h>
+#include "trace.h"
 
 SC_MODULE (scAddressCounter) {
     // ---------------------      Ports      ---------------------
@@ -35,7 +36,7 @@ SC_MODULE (scAddressCounter) {
     sc_in<sc_lv<1>>         memBusy{"memBusy"};
 
     sc_out<sc_lv<8>>    Val{"Val"};
-    sc_out<sc_lv<8>>  EOI_i0{"EOI_i0"};
+    sc_out<sc_lv<8>>    EOI_i0{"EOI_i0"};
 
 
     SC_CTOR(scAddressCounter) {
@@ -50,7 +51,7 @@ SC_MODULE (scAddressCounter) {
         while (1){
             Val.write(1);
 
-            if (RST.read() == 1) {
+            if (RST.read() == 0) {
                 Val.write(0);
             }
             else{

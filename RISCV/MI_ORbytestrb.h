@@ -1,6 +1,6 @@
-#include <systemc.h>
 #ifndef MI_ORBYTESTRB_H
 #define MI_ORBYTESTRB_H
+#include <systemc.h>
 
 SC_MODULE (scOR) {
     // ---------------------      Ports      ---------------------

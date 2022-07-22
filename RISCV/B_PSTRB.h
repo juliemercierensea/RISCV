@@ -7,6 +7,7 @@
 #include "mux2to1.h"
 #include "MI_ORbytestrb.h"
 #include "MI_registre.h"
+#include "trace.h"
 
 SC_MODULE(blocPSTRB){
 
@@ -34,7 +35,7 @@ SC_MODULE(blocPSTRB){
     sc_signal<sc_lv<8>> out1tomux{"out1tomux"};
     sc_signal<sc_lv<8>> out2tomux{"out2tomux"};
     sc_signal<sc_lv<8>> out3tomux{"out3tomux"};
-    sc_signal<sc_lv<8>> muxtobyte{"muxtobyte"};
+    //sc_signal<sc_lv<8>> muxtobyte{"muxtobyte"};
     sc_signal<sc_lv<1>> OR_to_reg{"ORtoREG"};
     sc_signal<sc_lv<4>> bytestrb_7to4{"bytestrb_7to4"};
     sc_signal<sc_lv<8>> BYTESTRB{"BYTESTRB"};
@@ -61,7 +62,7 @@ SC_MODULE(blocPSTRB){
         muxSTRB.i2(out2tomux);
         muxSTRB.i3(out3tomux);
         muxSTRB.sel(ALIGNMENT);
-        muxSTRB.res(muxtobyte);
+        muxSTRB.res(BYTESTRB);
 
         OR.bytestrb_7to4(bytestrb_7to4);
         OR.out(OR_to_reg);
@@ -88,14 +89,43 @@ SC_MODULE(blocPSTRB){
 
         SC_THREAD(sel);
         sensitive <<BYTESTRB;
+        sensitive<<reg_bytestrb_output;
+
+        wf= sc_create_vcd_trace_file("itest_BPSTRB");
+
+        sc_trace(wf,clock,"clock");
+        sc_trace(wf,size_i,"size_i");
+        sc_trace(wf,ALIGNMENT,"ALIGNMENT");
+        sc_trace(wf,first_cycle,"first_cycle");
+        sc_trace(wf,op2,"op2");
+        sc_trace(wf,PSTRB,"PSTRB");
+        sc_trace(wf,unaligned,"unaligned");
+
+        sc_trace(wf,SIZESTRB,"SIZESTRB");
+        sc_trace(wf,out1tomux,"out1tomux");
+        sc_trace(wf,out2tomux,"out2tomux");
+        sc_trace(wf,out3tomux,"out3tomux");
+        sc_trace(wf,OR_to_reg,"OR_to_reg");
+        sc_trace(wf,bytestrb_7to4,"bytestrb_7to4");
+        sc_trace(wf,bytestrb_3to0,"bytestrb_3to0");
+        sc_trace(wf,BYTESTRB,"BYTESTRB");
+        sc_trace(wf,reg_bytestrb_output,"reg_bytestrb_output");
+        sc_trace(wf,reg_bytestrb_output_3to0,"reg_bytestrb_output_3to0");
+        sc_trace(wf,reg_bytestrb_output_7to4,"reg_bytestrb_output_7to4");
+        sc_trace(wf,muxbytestrb_to_PSTRB,"muxbytestrb_to_PSTRB");
 
     }
     void sel(){
-        bytestrb_3to0.write(BYTESTRB.read().to_uint()& 0b1111);
+        while(1){
+
+        bytestrb_3to0.write((BYTESTRB.read().to_uint())& 0b1111);
         bytestrb_7to4.write((BYTESTRB.read().to_uint()&0b11110000)>>0x4);
 
         reg_bytestrb_output_3to0.write((reg_bytestrb_output.read().to_uint())& 0b1111);
         reg_bytestrb_output_7to4.write((reg_bytestrb_output.read().to_uint()& 0b11110000)>>0x4);
+
+        wait();
+        }
     }
 };
 

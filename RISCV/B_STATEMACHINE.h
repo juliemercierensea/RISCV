@@ -3,6 +3,7 @@
 #include <systemc.h>
 #include "MI_StateMachine.h"
 #include "MI_StateOutput.h"
+#include "trace.h"
 
 SC_MODULE(blocSTATEMACHINE){
 

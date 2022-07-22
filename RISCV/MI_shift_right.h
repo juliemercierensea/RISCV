@@ -1,6 +1,7 @@
-#include <systemc.h>
+
 #ifndef MI_SHIFT_RIGHT_H
 #define MI_SHIFT_RIGHT_H
+#include <systemc.h>
 
 template <unsigned int N=32,unsigned int SA=24>
 class shiftright : public ::sc_core::sc_module {

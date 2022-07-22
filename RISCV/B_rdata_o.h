@@ -10,6 +10,7 @@
 #include "MI_byte_extend.h"
 #include "MI_half_extend.h"
 #include "MI_AND.h"
+#include "trace.h"
 
 SC_MODULE(blocRdata_o){
 
@@ -112,24 +113,62 @@ SC_MODULE(blocRdata_o){
 
         SC_THREAD(sel);
         sensitive<<PRDATA;
+        sensitive<<out8rtomux;
+        sensitive<<out16rtomux;
+        sensitive<<out24rtomux;
+        sensitive<<muxtoextends;
+        sensitive<<regtoRDATA64B;
+
+        wf= sc_create_vcd_trace_file("itest_BRDATA_O");
+
+        sc_trace(wf,clock,"clock");
+        sc_trace(wf,PRDATA,"PRDATA");
+        sc_trace(wf,op1,"op1");
+        sc_trace(wf,PREADY,"PREADY");
+        sc_trace(wf,op2,"op2");
+        sc_trace(wf,ALIGNMENT_REG,"ALIGNMENT_REG");
+        sc_trace(wf,unsigned_i,"unsigned_i");
+        sc_trace(wf,size_i,"size_i");
+        sc_trace(wf,rdata_o,"rdata_o");
+        sc_trace(wf,rdata_unbuff_o,"rdata_unbuff_o");
+        sc_trace(wf,out8rtomux,"out8rtomux");
+        sc_trace(wf,out16rtomux,"out16rtomux");
+        sc_trace(wf,out24rtomux,"out24rtomux");
+        sc_trace(wf,RDATA64,"RDATA64");
+        sc_trace(wf,RDATA64_31to0,"RDATA64_31to0");
+        sc_trace(wf,RDATA64A,"RDATA64A");
+        sc_trace(wf,RDATA64B,"RDATA64B");
+        sc_trace(wf,regtoRDATA64B,"regtoRDATA64B");
+        sc_trace(wf,out8_31to0,"out8_31to0");
+        sc_trace(wf,out16_31to0,"out16_31to0");
+        sc_trace(wf,out24_31to0,"out24_31to0");
+        sc_trace(wf,muxtoextends,"muxtoextends");
+        sc_trace(wf,muxtoextends_15to0,"muxtoextends_15to0");
+        sc_trace(wf,muxtoextends_7to0,"muxtoextends_7to0");
+        sc_trace(wf,and_out,"and_out");
+        sc_trace(wf,byteext_out,"byteext_out");
+        sc_trace(wf,halfext_out,"halfext_out");
+        sc_trace(wf,muxSIZEtoreg,"muxSIZEtoreg");
     }
     void sel(){
+        while(1){
 
-        RDATA64_31to0.write(RDATA64.read()&0b11111111111111111111111111111111);
-        out8_31to0.write(out8rtomux.read()&0b11111111111111111111111111111111);
-        out16_31to0.write(out16rtomux.read()&0b11111111111111111111111111111111);
-        out24_31to0.write(out24rtomux.read()&0b11111111111111111111111111111111);
+            RDATA64_31to0.write(RDATA64.read()&0b11111111111111111111111111111111);
+            out8_31to0.write(out8rtomux.read()&0b11111111111111111111111111111111);
+            out16_31to0.write(out16rtomux.read()&0b11111111111111111111111111111111);
+            out24_31to0.write(out24rtomux.read()&0b11111111111111111111111111111111);
 
-        muxtoextends_7to0.write(muxtoextends.read()&0b11111111); //muxtoextend_7to0
-        muxtoextends_15to0.write(muxtoextends.read()&0b1111111111111111); //muxtoextend_15to0
+            muxtoextends_7to0.write(muxtoextends.read()&0b11111111); //muxtoextend_7to0
+            muxtoextends_15to0.write(muxtoextends.read()&0b1111111111111111); //muxtoextend_15to0
 
-        pre=PRDATA.read();
-        pre=pre<<0b100000;          //vérifier que ça fait bien l'opération souhaitée
-        RDATA64B.write(pre|regtoRDATA64B.read());
+            pre=PRDATA.read();
+            pre=pre<<0b100000;          //vérifier que ça fait bien l'opération souhaitée
+            RDATA64B.write(pre|regtoRDATA64B.read());
 
-        rdata_unbuff_o.write(PRDATA.read());
+            rdata_unbuff_o.write(PRDATA.read());
 
-
+            wait();
+        }
     }
 };
 

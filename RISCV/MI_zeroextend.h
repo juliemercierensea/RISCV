@@ -1,6 +1,7 @@
-#include <systemc.h>
+
 #ifndef MI_ZEROEXTEND_H
 #define MI_ZEROEXTEND_H
+#include <systemc.h>
 
 SC_MODULE (scZeroextend) {
     // ---------------------      Ports      ---------------------

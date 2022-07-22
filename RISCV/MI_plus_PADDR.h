@@ -1,6 +1,7 @@
-#include<systemc.h>
+
 #ifndef MI_PLUS_PADDR_H
 #define MI_PLUS_PADDR_H
+#include<systemc.h>
 
 SC_MODULE (scPlus) {
     // ---------------------      Ports      ---------------------
@@ -10,6 +11,7 @@ SC_MODULE (scPlus) {
 
     SC_CTOR(scPlus) {
         SC_THREAD(operation);
+        sensitive <<in_up;
         }
 
     void operation() {

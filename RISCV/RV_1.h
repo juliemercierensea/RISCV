@@ -7,6 +7,7 @@
 #include "PC.h"
 #include "Memory_Interface.h"
 #include "IMM_IR_CU.h"
+#include "trace.h"
 
 SC_MODULE(RV_1){
     sc_in_clk           clock{"clock"};
@@ -64,9 +65,6 @@ SC_MODULE(RV_1){
 
     SC_CTOR(RV_1){
 
-        func3_1to0.write(func3.read()&0b11);
-        func3_2.write((func3.read()&0b100)>>0x2);
-
         MemInt.RST(RST);
         MemInt.clock(clock);
         MemInt.PRDATA(PRDATA);
@@ -74,8 +72,8 @@ SC_MODULE(RV_1){
         MemInt.rd_i(RDMEM);
         MemInt.wr_i(WRMEM);
         MemInt.addr_i(Address_to_MEM);
-        MemInt.size_i(func3_1to0);//CHECK SELBITS
-        MemInt.unsigned_i(func3_2);//CHECK SELBITS
+        MemInt.size_i(func3_1to0);
+        MemInt.unsigned_i(func3_2);
         MemInt.wdata_i(Value_to_DMEM);
         MemInt.PADDR(PADDR);
         MemInt.PSTRB(PSTRB);
@@ -88,7 +86,7 @@ SC_MODULE(RV_1){
         MemInt.rdata_unbuff_o(Value_from_IMEM);
 
         IMM_IR_CU.clock(clock);
-        IMM_IR_CU.rdata_unbuff_o(Value_from_IMEM);
+        IMM_IR_CU.Value_from_IMEM(Value_from_IMEM);
         IMM_IR_CU.memBusy(memBusy);
         IMM_IR_CU.RST(RST);
         IMM_IR_CU.I_imm(I_imm);
@@ -154,6 +152,54 @@ SC_MODULE(RV_1){
         muxRD.sel(selRD);
         muxRD.res(rd_value);
 
+        SC_THREAD(select);
+        sensitive<<func3;
+
+        wf= sc_create_vcd_trace_file("itest_RV_1");
+        sc_trace(wf,clock,"clock");
+        sc_trace(wf,RST,"RST");
+        sc_trace(wf,PADDR,"PADDR");
+        sc_trace(wf,PSTRB,"PSTRB");
+        sc_trace(wf,PENABLE,"PENABLE");
+        sc_trace(wf,PREQ,"PREQ");
+        sc_trace(wf,PRDATA,"PRDATA");
+        sc_trace(wf,PREADY,"PREADY");
+
+        sc_trace(wf,RDMEM,"RDMEM");
+        sc_trace(wf,WRMEM,"WRMEM");
+        sc_trace(wf,Address_to_MEM,"Address_to_MEM");
+        sc_trace(wf,func3,"func3");
+        sc_trace(wf,Value_to_DMEM,"Value_to_DMEM");
+        sc_trace(wf,Value_from_IMEM,"Value_from_IMEM");
+        sc_trace(wf,sel1PC,"sel1PC");
+        sc_trace(wf,sel2PC,"sel2PC");
+        sc_trace(wf,iPC,"iPC");
+        sc_trace(wf,wIR,"wIR");
+        sc_trace(wf,IDMEM,"IDMEM");
+        sc_trace(wf,I_imm,"I_imm");
+        sc_trace(wf,S_imm,"S_imm");
+        sc_trace(wf,U_imm,"U_imm");
+        sc_trace(wf,B_imm,"B_imm");
+        sc_trace(wf,J_imm,"J_imm");
+        sc_trace(wf,rs1,"rs1");
+        sc_trace(wf,rs2,"rs2");
+        sc_trace(wf,rd_value,"rd_value");
+        sc_trace(wf,Address_to_IMEM,"Address_to_IMEM");
+        sc_trace(wf,Address_to_DMEM,"Address_to_DMEM");
+        sc_trace(wf,memBusy,"memBusy");
+        sc_trace(wf,rs1_value,"rs1_value");
+        sc_trace(wf,rd_value,"rd_value");
+        sc_trace(wf,func3_2,"func3_2");
+        sc_trace(wf,func3_1to0,"func3_1to0");
+
+    }
+
+    void select(){
+        while(1){
+            func3_1to0.write(func3.read()&0b11);
+            func3_2.write((func3.read()&0b100)>>0x2);
+            wait();
+        }
     }
 
 };

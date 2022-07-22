@@ -18,7 +18,18 @@ SOURCES += \
         IHex.cpp \
         configengine.cpp \
         main.cpp \
-        test.cpp \
+        #test.cpp \
+        #test_IMEM.cpp \
+        #test_IMMEDIATE.cpp \
+        #test_ALIGNMENTregister.cpp \
+        #test_MemInt.cpp \
+        test_ControlUnit.cpp \
+        #test_RV_1.cpp \
+        #test_B_PSTRB.cpp \
+        #test_B_PWRITE.cpp \
+        #test_BPADDR.cpp \
+        #test_PWDATA.cpp \
+        #test_rdata_o.cpp \
         xmlucrom.cpp
 
 # Default rules for deployment.
@@ -48,7 +59,6 @@ HEADERS += \
     InstrNumber.h \
     Instruction.h \
     MI_AND.h \
-    MI_IMEM_contents.h \
     MI_ORbytestrb.h \
     MI_ORtrigger.h \
     MI_StateMachine.h \
@@ -68,7 +78,6 @@ HEADERS += \
     ROMmem.h \
     RV_1.h \
     Regfile.h \
-    SelRI_value.h \
     TargetAdd.h \
     configengine.h \
     mux2to1.h \
