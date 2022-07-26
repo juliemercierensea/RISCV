@@ -61,7 +61,7 @@ SC_MODULE(RV_1){
     sc_signal<sc_lv<32>>    rs1_value{"rs1_value"};
     sc_signal<sc_lv<32>>    rd_value{"rd_value"};
     sc_signal<sc_lv<1>>     func3_2{"func3_2"};
-    sc_signal<sc_lv<2>>     func3_1to0{"func3_1to0"};
+    sc_signal<sc_lv<2>>     size_fromCU{"sizefromCU"};
 
     SC_CTOR(RV_1){
 
@@ -72,7 +72,7 @@ SC_MODULE(RV_1){
         MemInt.rd_i(RDMEM);
         MemInt.wr_i(WRMEM);
         MemInt.addr_i(Address_to_MEM);
-        MemInt.size_i(func3_1to0);
+        MemInt.size_i(size_fromCU);
         MemInt.unsigned_i(func3_2);
         MemInt.wdata_i(Value_to_DMEM);
         MemInt.PADDR(PADDR);
@@ -110,6 +110,7 @@ SC_MODULE(RV_1){
         IMM_IR_CU.RDMEM(RDMEM);
         IMM_IR_CU.WRMEM(WRMEM);
         IMM_IR_CU.IDMEM(IDMEM);
+        IMM_IR_CU.size_fromCU(size_fromCU);
 
         PC.rs1_value(rs1_value);
         PC.B_imm(B_imm);
@@ -193,20 +194,17 @@ SC_MODULE(RV_1){
         sc_trace(wf,rs1_value,"rs1_value");
         sc_trace(wf,rd_value,"rd_value");
         sc_trace(wf,func3_2,"func3_2");
-        sc_trace(wf,func3_1to0,"func3_1to0");
+        sc_trace(wf,size_fromCU,"size_fromCU");
         sc_trace(wf,selRD,"selRD");
         sc_trace(wf,wRD,"wRD");
-
     }
 
     void select(){
         while(1){
-            func3_1to0.write(func3.read()&0b11);
             func3_2.write((func3.read()&0b100)>>0x2);
             wait();
         }
     }
-
 };
 
 #endif // RV_1_H

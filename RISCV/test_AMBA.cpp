@@ -23,46 +23,13 @@ int sc_main (int argc, char *argv[]) {
          sc_trace(wf,RST,"reset");
 
          RST.write(0);
-         sc_start(10, SC_NS); clock=0; sc_start(10, SC_NS); clock =1;
+         sc_start(10, SC_NS); clock=0; sc_start(10, SC_NS); clock =1; sc_start(1,SC_NS);
+
+         for (int i=0; i<25; i++){
 
          RST.write(1);
          sc_start(10, SC_NS); clock=0; sc_start(10, SC_NS); clock =1;
-
-         RST.write(1);
-         sc_start(10, SC_NS); clock=0; sc_start(10, SC_NS); clock =1;
-
-         RST.write(1);
-         sc_start(10, SC_NS); clock=0; sc_start(10, SC_NS); clock =1;
-
-         RST.write(1);
-         sc_start(10, SC_NS); clock=0; sc_start(10, SC_NS); clock =1;
-
-         RST.write(1);
-         sc_start(10, SC_NS); clock=0; sc_start(10, SC_NS); clock =1;
-
-         RST.write(1);
-         sc_start(10, SC_NS); clock=0; sc_start(10, SC_NS); clock =1;
-
-         RST.write(1);
-         sc_start(10, SC_NS); clock=0; sc_start(10, SC_NS); clock =1;
-
-         RST.write(1);
-         sc_start(10, SC_NS); clock=0; sc_start(10, SC_NS); clock =1;
-
-         RST.write(1);
-         sc_start(10, SC_NS); clock=0; sc_start(10, SC_NS); clock =1;
-
-         RST.write(1);
-         sc_start(10, SC_NS); clock=0; sc_start(10, SC_NS); clock =1;
-
-         RST.write(1);
-         sc_start(10, SC_NS); clock=0; sc_start(10, SC_NS); clock =1;
-
-         RST.write(1);
-         sc_start(10, SC_NS); clock=0; sc_start(10, SC_NS); clock =1;
-
-         RST.write(1);
-         sc_start(10, SC_NS); clock=0; sc_start(10, SC_NS); clock =1;
+         }
 
          RST.write(0);
          sc_start(10, SC_NS); clock=0; sc_start(10, SC_NS); clock =1;

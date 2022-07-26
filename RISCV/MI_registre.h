@@ -16,8 +16,6 @@ public:
     SC_CTOR(registre) {
         SC_METHOD(combinational);
         sensitive << clock.pos();
-        sensitive << d;
-        sensitive << load;
     }
 
     void combinational () {

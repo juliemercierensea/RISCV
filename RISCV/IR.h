@@ -13,9 +13,6 @@ SC_MODULE(IR) {
     SC_CTOR(IR) {
         SC_THREAD(combinational);
         sensitive << clock.pos();
-        sensitive << LoadVal;
-        sensitive << wIR;
-        sensitive<<  memBusy;
     }
 
     void combinational () {

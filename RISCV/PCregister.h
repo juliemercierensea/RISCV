@@ -26,8 +26,7 @@ SC_MODULE (scPCregister) {
 
         SC_THREAD(PClogic);
         sensitive << clock.pos();
-        sensitive << RST;
-        sensitive<<Inc;
+        sensitive << RST.neg();
     }
 
     void PClogic() {

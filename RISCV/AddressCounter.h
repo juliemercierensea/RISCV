@@ -42,7 +42,7 @@ SC_MODULE (scAddressCounter) {
     SC_CTOR(scAddressCounter) {
         SC_THREAD(function);
         sensitive << clock.pos();
-        sensitive << RST;
+        sensitive << RST.neg();
         }
 
     void function() {

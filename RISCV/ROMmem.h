@@ -41,8 +41,7 @@ SC_MODULE (scROM_Memory) {
 
         SC_THREAD(function);
         sensitive << clock.pos();
-        sensitive<< RST;
-
+        sensitive << RST.neg();
         }
 
     void function() {/*

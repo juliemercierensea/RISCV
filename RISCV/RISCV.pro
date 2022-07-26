@@ -81,6 +81,7 @@ HEADERS += \
     Regfile.h \
     TargetAdd.h \
     configengine.h \
+    fetching_size.h \
     iPC_Control.h \
     mux2to1.h \
     mux3to1.h \

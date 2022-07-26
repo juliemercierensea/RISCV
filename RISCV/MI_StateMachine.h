@@ -21,7 +21,7 @@ SC_MODULE (scState) {
     SC_CTOR(scState) {
         SC_THREAD(state);
         sensitive << clock.pos();
-        sensitive << RST;
+        sensitive << RST.neg();
         }
 
     void state() {
@@ -34,7 +34,7 @@ SC_MODULE (scState) {
                 CurrentState.write(0);
             }
             else{
-                if((CurrentState.read().to_uint()==0) && (trigger.read()==1)){ //stOp1A -> stOp1B
+                if((CurrentState.read()==0) && (trigger.read()==1)){ //stOp1A -> stOp1B
                     CurrentState.write(1);
                 }
                 else{
@@ -50,7 +50,7 @@ SC_MODULE (scState) {
                                 CurrentState.write(3);
                             }
                             else {
-                                 if((CurrentState.read()==0x3) && (PREADY.read()==1)){ //stOp2B-> stOp1A
+                                 if((CurrentState.read()==3) && (PREADY.read()==1)){ //stOp2B-> stOp1A
                                     CurrentState.write(0);
                                  }
                             }

@@ -6,6 +6,7 @@
 #include "IMMEDIATE.h"
 #include "Control_Unit.h"
 #include "IR.h"
+#include "fetching_size.h"
 #include "trace.h"
 
 SC_MODULE(scIMM_IR_CU){
@@ -36,14 +37,22 @@ SC_MODULE(scIMM_IR_CU){
     sc_out<sc_lv<1>>    RDMEM{"RDMEM"};
     sc_out<sc_lv<1>>    WRMEM{"WRMEM"};
     sc_out<sc_lv<1>>    IDMEM{"IDMEM"};
+    sc_out<sc_lv<2>>    size_fromCU{"size_fromCU"};
 
     scControl_Unit  Control_Unit{"ControlUnit"};
     IR              IR {"IR"};
     scIMMEDIATE     IMM {"IMM"};
+    fetch_size      fetchsize{"fetch_size"};
 
     sc_signal<sc_lv<32>>    RI_value{"RI_value"};
+    sc_signal<sc_lv<1>>     fetching{"fetching"};
 
     SC_CTOR(scIMM_IR_CU){
+
+        fetchsize.size(size_fromCU);
+        fetchsize.RI(RI_value);
+        fetchsize.fetching(fetching);
+
         IR.Val(RI_value);
         IR.LoadVal(Value_from_IMEM);
         IR.clock(clock);
@@ -73,6 +82,7 @@ SC_MODULE(scIMM_IR_CU){
         Control_Unit.RD(RDMEM);
         Control_Unit.WR(WRMEM);
         Control_Unit.IDMEM(IDMEM);
+        Control_Unit.fetching(fetching);
 
         SC_THREAD(select);
         sensitive<<RI_value;
@@ -108,6 +118,7 @@ SC_MODULE(scIMM_IR_CU){
         sc_trace(wf,IDMEM,"IDMEM");
 
         sc_trace(wf,RI_value,"RI_value");
+        sc_trace(wf,fetching,"fetching");
     }
 
     void select(){

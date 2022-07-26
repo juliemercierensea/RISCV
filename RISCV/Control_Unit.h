@@ -29,6 +29,7 @@ SC_MODULE (scControl_Unit) {
     sc_out<sc_lv<1>>    RD{"RD"};
     sc_out<sc_lv<1>>    WR{"WR"};
     sc_out<sc_lv<1>>    IDMEM{"IDMEM"};
+    sc_out<sc_lv<1>>    fetching{"fetching"};
 
     scAddressCounter    AddCounter{"RISCV_AddressCounter"};
     scInstrNumber       InstrNb {"Instruction_Number"};
@@ -111,6 +112,7 @@ SC_MODULE (scControl_Unit) {
         selROMData.sel1ALU(sel1ALU);
         selROMData.sel2PC(sel2PC);
         selROMData.sel1PC(sel1PC);
+        selROMData.fetching(fetching);
 
         iPC_control.waitMem(waitMEM);
         iPC_control.memBusy(memBusy);
@@ -150,6 +152,7 @@ SC_MODULE (scControl_Unit) {
         sc_trace(wf,uADDR,"uADDR");
         sc_trace(wf,uINSTR,"uINSTR");
         sc_trace(wf,iPC_i,"iPC_i");
+        sc_trace(wf,fetching,"fetching");
     }
 };
 

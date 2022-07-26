@@ -51,7 +51,7 @@ SC_MODULE (scRegfile) {
     SC_CTOR(scRegfile) {
         SC_THREAD(store);
 
-        sensitive << reset;
+        sensitive << reset.neg();
         sensitive << clock.pos();
     }
     void store () {

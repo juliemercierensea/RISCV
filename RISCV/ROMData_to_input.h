@@ -29,6 +29,7 @@ SC_MODULE (scSelectfromROMData) {
     sc_out<sc_lv<1>>        sel1ALU{"sel1ALU"};
     sc_out<sc_lv<1>>        sel2PC{"sel2PC"};
     sc_out<sc_lv<1>>        sel1PC{"sel1PC"};
+    sc_out<sc_lv<1>>        fetching{"fetching"};
     sc_out<sc_lv<1>>        EOF_o{"EOF_o"};
     sc_out<sc_lv<1>>        EOI_o{"EOI_o"};
 
@@ -52,6 +53,7 @@ SC_MODULE (scSelectfromROMData) {
         sel1ALU.write((ROMData.read()&0b100000000000000)>>0xE);
         sel2PC.write((ROMData.read()&0b100000000000000000000)>>0x14);
         sel1PC.write((ROMData.read()&0b1000000000000000000000)>>0x15);
+        fetching.write((ROMData.read()& 0b00100000000000000000000000000000)>>0x1D);
         EOF_o.write((ROMData.read()& 0x40000000)>>0x1E);
         EOI_o.write((ROMData.read()& 0x80000000)>>0x1F);
 

@@ -2,6 +2,7 @@
 #ifndef MI_STATEOUTPUT_H
 #define MI_STATEOUTPUT_H
 #include <systemc.h>
+#include "trace.h"
 
 SC_MODULE (scStateOutput) {
     // ---------------------      Ports      ---------------------
@@ -25,7 +26,7 @@ SC_MODULE (scStateOutput) {
     void state() {
         while (1){
 
-            if(CurrentState_i.read().to_uint()==0){        //stOp1A
+            if(CurrentState_i.read()==0){        //stOp1A
                 op1.write(1);
                 op2.write(0);
                 first_cycle.write(1);
@@ -33,7 +34,7 @@ SC_MODULE (scStateOutput) {
                 preq_sel.write(0);
                 PENABLE.write(0);
             }
-            else if(CurrentState_i.read().to_uint()==1){        //stOp1B
+            else if(CurrentState_i.read()==1){        //stOp1B
                 op1.write(1);
                 op2.write(0);
                 first_cycle.write(0);
@@ -41,7 +42,7 @@ SC_MODULE (scStateOutput) {
                 preq_sel.write(1);
                 PENABLE.write(1);
             }
-            else if(CurrentState_i.read().to_uint()==2){        //stOp2A
+            else if(CurrentState_i.read()==2){        //stOp2A
                 op1.write(0);
                 op2.write(1);
                 first_cycle.write(0);
@@ -49,7 +50,7 @@ SC_MODULE (scStateOutput) {
                 preq_sel.write(1);
                 PENABLE.write(0);
             }
-            else if(CurrentState_i.read().to_uint()==3){        //stOp2B
+            else if(CurrentState_i.read()==3){        //stOp2B
                 op1.write(0);
                 op2.write(1);
                 first_cycle.write(0);

@@ -29,10 +29,9 @@ SC_MODULE (scIMEM) {
 
         SC_THREAD(decodeHex);
         sensitive << PCLK.pos();
-        sensitive << PADDR;
-        sensitive << PSTRB;
+
+        SC_THREAD(enable2ready);
         sensitive << PENABLE;
-        sensitive << PSEL;
 
         wf= sc_create_vcd_trace_file("IMEM");
         sc_trace(wf,PCLK,"PCLK");
@@ -44,11 +43,16 @@ SC_MODULE (scIMEM) {
         sc_trace(wf,PREADY,"PREADY");
         }
 
+    void enable2ready(){
+        while(1){
+            PREADY.write(PENABLE.read());
+            wait();
+        }
+    }
+
 
     void decodeHex() {
         while (1){
-
-            PREADY.write(PENABLE.read());
 
 #if 1
             if((PSEL.read()&0b1)==1){
