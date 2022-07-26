@@ -16,7 +16,7 @@ int sc_main (int argc, char *argv[]) {
     sc_signal<sc_lv<4>>     PSTRB{"PSTRB"};
     sc_signal<sc_lv<32>>    PWDATA{"PWDATA"};
     sc_signal<sc_lv<1>>     PWRITE{"PWRITE"};
-    sc_signal<sc_lv<1>>     PENABLE{"PENABLE_super"};
+    sc_signal<sc_lv<1>>     PENABLE{"PENABLE"};
     sc_signal<sc_lv<1>>     PREQ{"PREQ"};
 
     RV_1 RV1 {"RV_1"};
@@ -52,14 +52,17 @@ int sc_main (int argc, char *argv[]) {
          RST.write(1);  PRDATA.write(0x0FF0000F); PREADY.write(0);
          sc_start(10, SC_NS); clock=0; sc_start(10, SC_NS); clock =1;
 
-         RST.write(1);  PRDATA.write(0x0FF0000F); PREADY.write(0);
+         RST.write(1);  PRDATA.write(0x0FF0000F); PREADY.write(1);
          sc_start(10, SC_NS); clock=0; sc_start(10, SC_NS); clock =1;
 
          RST.write(1);  PRDATA.write(0x0FF0000F); PREADY.write(1);
          sc_start(10, SC_NS); clock=0; sc_start(10, SC_NS); clock =1;
 
-         RST.write(0);  PRDATA.write(0x0FF0000F); PREADY.write(1);
+         /*RST.write(1);  PRDATA.write(0x00108093); PREADY.write(0);
          sc_start(10, SC_NS); clock=0; sc_start(10, SC_NS); clock =1;
+
+         RST.write(1);  PRDATA.write(0x00108093); PREADY.write(1);
+         sc_start(10, SC_NS); clock=0; sc_start(10, SC_NS); clock =1;*/
 
          sc_close_vcd_trace_file(wf);
          return 0;

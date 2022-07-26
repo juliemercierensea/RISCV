@@ -23,6 +23,7 @@ SC_MODULE (scDecoder) {
     SC_CTOR(scDecoder) {
         SC_THREAD(decode);
         sensitive << address;
+        sensitive <<enable;
         }
 
     void decode() {

@@ -40,7 +40,7 @@ SC_MODULE (scSelectfromROMData) {
         while(1){
 
         waitMEM_o.write(ROMData.read()& 0x1);
-        IDMEM.write((ROMData.read()&0b1)>>0x1);
+        IDMEM.write((ROMData.read()&0b10)>>0x1);
         RD.write((ROMData.read()&0b100)>>0x2);
         WR.write((ROMData.read()&0b1000)>>0x3);
         wIR.write((ROMData.read()&0b10000)>>0x4);

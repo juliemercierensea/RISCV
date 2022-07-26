@@ -49,24 +49,25 @@ SC_MODULE (scALUreg) {
     void operations() {
         while (1){
 
-        if (selop.read()==1){ //+ operation
+        if(selop.read()==0){
+            res.write(0);
+        }
 
+        if (selop.read()==1){ //+ operation
             res.write((op1.read().to_uint64())+(op2.read().to_uint64()));
                         }
 
         if (selop.read()==2){ // -(signed) operation
             res.write((op1.read().to_int64()) - (op2.read().to_int64()));
-            //flags.write(0); //Correct ?
             }
 
         if (selop.read()==3){ // -(unsigned) operation
             res.write((op1.read().to_uint64()) - (op2.read().to_uint64()));
-            //flags.write(0);
             }
 
         if (selop.read()==4){ // & operation
             res.write((op1.read().to_uint64()) & (op2.read().to_uint64()));
-                        }
+            }
 
         if (selop.read()==5){ // | operation
             res.write((op1.read().to_uint64()) | (op2.read().to_uint64()));

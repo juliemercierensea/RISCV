@@ -174,6 +174,9 @@ SC_MODULE(RV_1){
         sc_trace(wf,sel1PC,"sel1PC");
         sc_trace(wf,sel2PC,"sel2PC");
         sc_trace(wf,iPC,"iPC");
+        sc_trace(wf,sel1ALU,"sel1ALU");
+        sc_trace(wf,sel2ALU,"sel2ALU");
+        sc_trace(wf,selopALU,"selopALU");
         sc_trace(wf,wIR,"wIR");
         sc_trace(wf,IDMEM,"IDMEM");
         sc_trace(wf,I_imm,"I_imm");
@@ -191,6 +194,8 @@ SC_MODULE(RV_1){
         sc_trace(wf,rd_value,"rd_value");
         sc_trace(wf,func3_2,"func3_2");
         sc_trace(wf,func3_1to0,"func3_1to0");
+        sc_trace(wf,selRD,"selRD");
+        sc_trace(wf,wRD,"wRD");
 
     }
 

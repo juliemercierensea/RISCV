@@ -71,9 +71,8 @@ SC_MODULE (scROM_Memory) {
                 ROMData.write(0);
             }
             else{
-                    if (((waitMEM.read())==0)||((waitMEM.read()==1) && (memBusy.read()==0))){
-                        ROMData.write(ROMtab[Address.read().to_int()]);
-                        //ROMData.write(0x1);
+                    if (((waitMEM.read())==0)||((memBusy.read()==0))){
+                        ROMData.write(ROMtab[Address.read().to_uint()]);
                     }
             }
             wait();

@@ -33,7 +33,7 @@ SC_MODULE (scPCregister) {
     void PClogic() {
 
         while(1){
-            Count.write(0); //on initialise
+            //Count.write(0); //on initialise
 
             if (RST.read() == 0) {
                 Count.write(0); // on réinitialise

@@ -43,7 +43,6 @@ SC_MODULE(scIMM_IR_CU){
 
     sc_signal<sc_lv<32>>    RI_value{"RI_value"};
 
-
     SC_CTOR(scIMM_IR_CU){
         IR.Val(RI_value);
         IR.LoadVal(Value_from_IMEM);
@@ -77,6 +76,38 @@ SC_MODULE(scIMM_IR_CU){
 
         SC_THREAD(select);
         sensitive<<RI_value;
+
+        wf= sc_create_vcd_trace_file("itest_IMM_IR_CU");
+
+        sc_trace(wf,clock,"clock");
+        sc_trace(wf,RST,"RST");
+        sc_trace(wf,Value_from_IMEM,"Value_from_IMEM");
+        sc_trace(wf,memBusy,"memBusy");
+
+        sc_trace(wf,I_imm,"I_imm");
+        sc_trace(wf,S_imm,"S_imm");
+        sc_trace(wf,U_imm,"U_imm");
+        sc_trace(wf,B_imm,"B_imm");
+        sc_trace(wf,J_imm,"J_imm");
+        sc_trace(wf,rs1,"rs1");
+        sc_trace(wf,rs2,"rs2");
+        sc_trace(wf,rd,"rd");
+        sc_trace(wf,func3,"func3");
+
+        sc_trace(wf,sel1PC,"sel1PC");
+        sc_trace(wf,sel2PC,"sel2PC");
+        sc_trace(wf,iPC,"iPC");
+        sc_trace(wf,wRD,"wRD");
+        sc_trace(wf,selRD,"selRD");
+        sc_trace(wf,sel1ALU,"sel1ALU");
+        sc_trace(wf,sel2ALU,"sel2ALU");
+        sc_trace(wf,selopALU,"selopALU");
+        sc_trace(wf,wIR,"wIR");
+        sc_trace(wf,RDMEM,"RDMEM");
+        sc_trace(wf,WRMEM,"WRMEM");
+        sc_trace(wf,IDMEM,"IDMEM");
+
+        sc_trace(wf,RI_value,"RI_value");
     }
 
     void select(){

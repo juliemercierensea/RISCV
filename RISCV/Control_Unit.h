@@ -9,6 +9,7 @@
 #include <ROMmem.h>
 #include <ROMData_to_input.h>
 #include "trace.h"
+#include "iPC_Control.h"
 
 SC_MODULE (scControl_Unit) {
     sc_in<sc_lv<32>>    instruction{"instruction"};
@@ -34,8 +35,9 @@ SC_MODULE (scControl_Unit) {
     scInstruction       InstrSel{"Instruction_Selection"};
     mux2to1<8>          muxEOI {"Mux_EOI"};
     mux2to1<8>          muxEOF {"Mux_EOF"};
-    scROM_Memory        ROMmem {"ROM_Memory"};
+    scROM_Memory        ROMmem {"rvucrom.xml","ROM_Memory"};
     scSelectfromROMData selROMData {"SelectfromROMData"};
+    iPC_Control     iPC_control{"iPC_control"};
 
     sc_signal<sc_lv<8>>  INUM{"INUM"};
     sc_signal<bool>      func12_0{"func12_0"};
@@ -50,10 +52,7 @@ SC_MODULE (scControl_Unit) {
     sc_signal<sc_lv<8>>  EOI_0x0{"EOI_0x0"};
     sc_signal<sc_lv<8>>  uADDR {"Address"};
     sc_signal<sc_lv<32>> uINSTR{"uINSTR"};
-    //sc_signal<sc_lv<32>> rdata_unbuff_o{"rdata_unbuff_o"};
-    sc_signal<sc_lv<1>>  wr_i{"wr_i"};
-    sc_signal<sc_lv<1>>  rd_i{"rd_i"};
-
+    sc_signal<sc_lv<1>> iPC_i{"iPC_i"};
 
     SC_CTOR(scControl_Unit) {
 
@@ -101,10 +100,10 @@ SC_MODULE (scControl_Unit) {
         selROMData.EOI_o(EOI);
         selROMData.waitMEM_o(waitMEM);
         selROMData.IDMEM(IDMEM);
-        selROMData.RD(rd_i);
-        selROMData.WR(wr_i);
+        selROMData.RD(RD);
+        selROMData.WR(WR);
         selROMData.wIR(wIR);
-        selROMData.iPC(iPC);
+        selROMData.iPC(iPC_i);
         selROMData.selRD(selRD);
         selROMData.wRD(wRD);
         selROMData.selopALU(selopALU);
@@ -112,6 +111,11 @@ SC_MODULE (scControl_Unit) {
         selROMData.sel1ALU(sel1ALU);
         selROMData.sel2PC(sel2PC);
         selROMData.sel1PC(sel1PC);
+
+        iPC_control.waitMem(waitMEM);
+        iPC_control.memBusy(memBusy);
+        iPC_control.iPC_i(iPC_i);
+        iPC_control.iPC_o(iPC);
 
         wf= sc_create_vcd_trace_file("itest_ControlUnit");
 
@@ -145,8 +149,7 @@ SC_MODULE (scControl_Unit) {
         sc_trace(wf,EOI_0x0,"EOI_0x0");
         sc_trace(wf,uADDR,"uADDR");
         sc_trace(wf,uINSTR,"uINSTR");
-        sc_trace(wf,wr_i,"wr_i");
-        sc_trace(wf,rd_i,"rd_i");
+        sc_trace(wf,iPC_i,"iPC_i");
     }
 };
 

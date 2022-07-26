@@ -13,7 +13,7 @@ SC_MODULE(AMBA){
     sc_in<bool>  RST{"reset"};
 
     RV_1        RV1 {"RV_1"};
-    scIMEM      IMEM{"Instruction_Memory"};
+    scIMEM      IMEM{"test1.hex","Instruction_Memory"};
     scDecoder   decoder {"Slave_decoder"};
     mux2to1<32> muxPRDATA{"muxPRDATA"};
     mux2to1<1>  muxPREADY{"muxPREADY"};
@@ -34,7 +34,6 @@ SC_MODULE(AMBA){
     sc_signal<sc_lv<2>>     PSEL{"PSEL"};
     sc_signal<sc_lv<1>>     numSlave{"numSlave"};
     sc_signal<sc_lv<8>>     highAPADDR{"highAPADDR"};
-
 
     SC_CTOR(AMBA){
 
@@ -74,6 +73,27 @@ SC_MODULE(AMBA){
 
         SC_THREAD(select_int_sig);
         sensitive<<PADDR;
+
+        wf= sc_create_vcd_trace_file("itest_AMBA");
+
+        sc_trace(wf,clock,"clock");
+        sc_trace(wf,RST,"reset");
+        sc_trace(wf,PRDATA,"PRDATA");
+        sc_trace(wf,PREADY,"PREADY");
+        sc_trace(wf,PRDATA0,"PRDATA0");
+        sc_trace(wf,PREADY0,"PREADY0");
+        sc_trace(wf,PRDATA1,"PRDATA1");
+        sc_trace(wf,PREADY1,"PREADY1");
+        sc_trace(wf,PADDR,"PADDR");
+        sc_trace(wf,PADDR8,"PADDR8");
+        sc_trace(wf,PSTRB,"PSTRB");
+        sc_trace(wf,PWDATA,"PWDATA");
+        sc_trace(wf,PWRITE,"PWRITE");
+        sc_trace(wf,PENABLE,"PENABLE");
+        sc_trace(wf,PREQ,"PREQ");
+        sc_trace(wf,PSEL,"PSEL");
+        sc_trace(wf,numSlave,"numSlave");
+        sc_trace(wf,highAPADDR,"highAPADDR");
     }
 
     void select_int_sig(){

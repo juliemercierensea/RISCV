@@ -45,6 +45,21 @@ SC_MODULE(scALU){
         mux2ALU.i2(U_imm);
         mux2ALU.i3(S_imm);
         mux2ALU.res(muxtoop2);
+
+        wf= sc_create_vcd_trace_file("itest_ALU");
+
+        sc_trace(wf,selopALU,"selopALU");
+        sc_trace(wf,sel2ALU,"sel2ALU");
+        sc_trace(wf,sel1ALU,"sel1ALU");
+        sc_trace(wf,rs1_value,"rs1_value");
+        sc_trace(wf,PC_value,"PC_value");
+        sc_trace(wf,rs2_value,"rs2_value");
+        sc_trace(wf,I_imm,"I_imm");
+        sc_trace(wf,U_imm,"U_imm");
+        sc_trace(wf,S_imm,"S_imm");
+        sc_trace(wf,ALU_value,"ALU_value");
+        sc_trace(wf,muxtoop1,"muxtoop1");
+        sc_trace(wf,muxtoop2,"muxtoop2");
     }
 };
 

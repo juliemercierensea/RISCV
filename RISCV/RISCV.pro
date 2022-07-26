@@ -18,18 +18,19 @@ SOURCES += \
         IHex.cpp \
         configengine.cpp \
         main.cpp \
-        #test.cpp \
         #test_IMEM.cpp \
         #test_IMMEDIATE.cpp \
         #test_ALIGNMENTregister.cpp \
         #test_MemInt.cpp \
-        test_ControlUnit.cpp \
+        #test_ControlUnit.cpp \
         #test_RV_1.cpp \
         #test_B_PSTRB.cpp \
         #test_B_PWRITE.cpp \
         #test_BPADDR.cpp \
         #test_PWDATA.cpp \
         #test_rdata_o.cpp \
+        test_AMBA.cpp \
+        #test_IMM_IR_CU.cpp \
         xmlucrom.cpp
 
 # Default rules for deployment.
@@ -80,6 +81,7 @@ HEADERS += \
     Regfile.h \
     TargetAdd.h \
     configengine.h \
+    iPC_Control.h \
     mux2to1.h \
     mux3to1.h \
     mux4to1.h \

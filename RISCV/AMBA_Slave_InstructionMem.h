@@ -29,6 +29,10 @@ SC_MODULE (scIMEM) {
 
         SC_THREAD(decodeHex);
         sensitive << PCLK.pos();
+        sensitive << PADDR;
+        sensitive << PSTRB;
+        sensitive << PENABLE;
+        sensitive << PSEL;
 
         wf= sc_create_vcd_trace_file("IMEM");
         sc_trace(wf,PCLK,"PCLK");
