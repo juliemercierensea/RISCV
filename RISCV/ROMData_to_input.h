@@ -53,7 +53,7 @@ SC_MODULE (scSelectfromROMData) {
         sel1ALU.write((ROMData.read()&0b100000000000000)>>0xE);
         sel2PC.write((ROMData.read()&0b100000000000000000000)>>0x14);
         sel1PC.write((ROMData.read()&0b1000000000000000000000)>>0x15);
-        fetching.write((ROMData.read()& 0b00100000000000000000000000000000)>>0x1D);
+        fetching.write((ROMData.read()& 0b100000000000000000000000000000)>>0x1D);
         EOF_o.write((ROMData.read()& 0x40000000)>>0x1E);
         EOI_o.write((ROMData.read()& 0x80000000)>>0x1F);
 

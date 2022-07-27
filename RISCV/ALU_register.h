@@ -43,7 +43,7 @@ SC_MODULE (scALUreg) {
         SC_THREAD(operations);
         sensitive << op1;
         sensitive << op2;
-        sensitive << selop;
+        //sensitive << selop;
     }
 
     void operations() {
