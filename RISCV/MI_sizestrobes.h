@@ -1,4 +1,10 @@
-
+/*!
+ * \file MI_sizestrobes.h
+ * \brief we keep either a byte, a halfword or a word according to the value of the input (size)\n
+ * \author Julie Mercier
+ * \version 0.1
+ * \date  July 8th 2022\n
+ */
 #ifndef MI_SIZESTROBES_H
 #define MI_SIZESTROBES_H
 #include <systemc.h>

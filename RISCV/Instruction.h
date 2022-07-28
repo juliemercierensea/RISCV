@@ -8,7 +8,7 @@
  *         func3 is bit 14 to 12 (included) and opcode_6to2 is bit 6 to 2 (included)\n
  * \author Julie Mercier
  * \version 0.1
- * \date  9 June 2022\n
+ * \date June 9th 2022\n
  */
 
 #ifndef INSTRUCTION_H

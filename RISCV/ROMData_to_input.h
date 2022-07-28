@@ -1,11 +1,27 @@
 /*!
  * \file ROMData_to_input.h
- * \brief Extract the values of waitMEM, EOF and EOI from the the ROM_memory output (Data called ROMData here) (32bits)\n
+ * \brief Extract the values of the interesting bits (those we use later) from the ROM_memory output (Data called ROMData here) (32bits)\n
  *        To do so, we use bitwise masks : we put a 1 at the bit we want to extract to 1, 0 everywhere else and then we shift right the bit so as to put it in first position.\n
- *        waitMEM is bit 0, EOF is bit 30 and EOI is bit 31 of ROMData.
+ *        bit 0 : waitMEM\n
+ *        bit 1 : IDMEM\n
+ *        bit 2 : RD\n
+ *        bit 3 : WR\n
+ *        bit 4 : wIR\n
+ *        bit 5 : iPC\n
+ *        bit 6 : selRD\n
+ *        bit 7 : wRD\n
+ *        bit 8 to 11 : selopALU\n
+ *        bit 12 to 13 : sel2ALU\n
+ *        bit 14 : sel1ALU\n
+ *        bit 20 : sel2PC\n
+ *        bit 21 : sel1PC\n
+ *        bit 29 : fetching\n
+ *        bit 30 : EOF\n
+ *        bit 31 : EOI\n
  * \author Julie Mercier
  * \version 0.1
- * \date  17 June 2022\n
+ * \date June 17th 2022\n
+ * \todo implement the bits 16,17,18 and 19 corresponding to the flags\n
  */
 
 #ifndef ROMDATA_TO_INPUT_H

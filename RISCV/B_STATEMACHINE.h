@@ -1,3 +1,12 @@
+/*!
+ * \file B_STATEMACHINE.h
+ * \brief Bloc gathering and binding all the elements producing the STATE MACHINE of the memory interface\n
+ * \author Julie Mercier
+ * \version 0.1
+ * \date  July 18th 2022\n
+ *  In the state machine, there are 2 blocs : the first gives us the current state we are
+ *  in and the second updates the values of the outputs (op1, op2, first cycle...)\n
+ */
 #ifndef B_STATEMACHINE_H
 #define B_STATEMACHINE_H
 #include <systemc.h>

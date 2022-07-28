@@ -1,3 +1,7 @@
+/*!
+ * \file test_IMMEDIATE.cpp
+ * \brief testbench of IMMEDIATE
+ */
 #include<systemc.h>
 #include "IMMEDIATE.h"
 #include "trace.h"
@@ -36,9 +40,12 @@ int sc_main (int argc, char *argv[]) {
          sc_trace(wf,RI,"RI");
 
          RI.write(0x0);   sc_start(10, SC_NS);
+         RI.write(0xFFE00000);  sc_start(10, SC_NS);
+         RI.write(0x7FE00000);  sc_start(10, SC_NS);
          RI.write(0b1011001101010);   sc_start(10, SC_NS);
          RI.write(0b0011111100001);   sc_start(10, SC_NS);
-         //RI.write(0b111111111111);   sc_start(10, SC_NS);
+         RI.write(0b111111111111);   sc_start(10, SC_NS);
+         RI.write(0x80000000);  sc_start(10, SC_NS);
 
          sc_close_vcd_trace_file(wf);
          return 0;

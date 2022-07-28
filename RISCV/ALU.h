@@ -1,3 +1,10 @@
+/*!
+ * \file ALU.h
+ * \brief Bloc of the ALU gathering and binding the ALU register and the 2 multiplexers before the ALU\n
+ * \author Julie Mercier
+ * \version 0.1
+ * \date  July 15th 2022\n
+ */
 #ifndef ALU_H
 #define ALU_H
 #include <systemc.h>

@@ -1,3 +1,11 @@
+/*!
+ * \file IMM_IR_CU.h
+ * \brief Bloc gathering and binding the Control Unit, the immediate register, the IR register and fetching_size\n
+ * \author Julie Mercier
+ * \version 0.1
+ * \date  July 18th 2022\n
+ * This is also where we create the vcd file associated to the internal signals of IMM_IR_CU and where we extract rd, rs1, rs2 and func3 from RI.\n
+ */
 #ifndef IMM_IR_CU_H
 #define IMM_IR_CU_H
 

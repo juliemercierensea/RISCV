@@ -1,3 +1,7 @@
+/*!
+ * \file test_rdata_o.cpp
+ * \brief testbench of the bloc rdata_o
+ */
 #include<systemc.h>
 #include "B_rdata_o.h"
 #include "trace.h"

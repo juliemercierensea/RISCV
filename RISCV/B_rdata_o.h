@@ -1,3 +1,12 @@
+/*!
+ * \file B_rdata_o.h
+ * \brief Bloc gathering and binding all the elements producing the outputs rdata_o and rdata_unbuff_o in the memory interface\n
+ * \author Julie Mercier
+ * \version 0.1
+ * \date  July 18th 2022\n
+ * This is also where we create the vcd file associated to B_rdata_o and its internal signals \n
+ * **sel function** allows us to select the bits of the signals we are interested in \n
+ */
 #ifndef B_RDATA_O_H
 #define B_RDATA_O_H
 #include <systemc.h>
@@ -162,7 +171,7 @@ SC_MODULE(blocRdata_o){
             muxtoextends_15to0.write(muxtoextends.read()&0b1111111111111111); //muxtoextend_15to0
 
             pre=PRDATA.read();
-            pre=pre<<0b100000;          //vérifier que ça fait bien l'opération souhaitée
+            pre=pre<<0b100000;
             RDATA64B.write(pre|regtoRDATA64B.read());
 
             rdata_unbuff_o.write(PRDATA.read());

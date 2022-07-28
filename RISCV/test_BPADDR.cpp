@@ -1,3 +1,7 @@
+/*!
+ * \file test_BPADDR.cpp
+ * \brief testbench of BPADDR
+ */
 #include<systemc.h>
 #include "B_PADDR.h"
 #include "trace.h"

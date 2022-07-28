@@ -1,3 +1,7 @@
+/*!
+ * \file test_ControlUnit.cpp
+ * \brief testbench of control unit
+ */
 #include<systemc.h>
 #include "Control_Unit.h"
 #include "trace.h"

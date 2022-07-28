@@ -1,3 +1,7 @@
+/*!
+ * \file test_AMBA.cpp
+ * \brief testbench of AMBA
+ */
 #include<systemc.h>
 #include "AMBA.h"
 #include "trace.h"

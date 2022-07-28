@@ -1,3 +1,7 @@
+/*!
+ * \file test_IMM_IR_CU.cpp
+ * \brief testbench of IMM_IR_CU
+ */
 #include<systemc.h>
 #include "IMM_IR_CU.h"
 #include "trace.h"

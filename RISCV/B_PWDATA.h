@@ -1,3 +1,11 @@
+/*!
+ * \file B_PWDATA.h
+ * \brief Bloc gathering and binding all the elements producing the output PWDATA in the memory interface\n
+ * \author Julie Mercier
+ * \version 0.1
+ * \date  July 18th 2022\n
+ * This is also where we create the vcd file associated to PWDATA and its internal signals \n
+ */
 #ifndef B_PWDATA_H
 #define B_PWDATA_H
 #include <systemc.h>

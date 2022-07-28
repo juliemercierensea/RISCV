@@ -1,3 +1,11 @@
+/*!
+ * \file MI_half_extend.h
+ * \brief extends the input taking into account the fact that it's signed or unsigned. The input is 2 bytes wide and we extend it to make it 4 bytes wide\n
+ * \author Julie Mercier
+ * \version 0.1
+ * \date  July 8th 2022\n
+ *
+ */
 #ifndef MI_HALF_EXTEND_H
 #define MI_HALF_EXTEND_H
 #include <systemc.h>

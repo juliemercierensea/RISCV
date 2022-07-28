@@ -3,7 +3,7 @@
  * \brief Target Address : performs a only one operation op1+op2 and send it to the PC register.
  * \author Julie Mercier
  * \version 0.1
- * \date  5 June 2022\n
+ * \date June 5th 2022\n
  */
 
 #ifndef TARGETADD_H

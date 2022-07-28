@@ -1,3 +1,11 @@
+/*!
+ * \file Control_Unit.h
+ * \brief Bloc gathering and binding all the elements of the Control Unit\n
+ * \author Julie Mercier
+ * \version 0.1
+ * \date  July 18th 2022\n
+ * This is also where we create the vcd file associated to the internal signals of the control unit.\n
+ */
 #ifndef CONTROL_UNIT_H
 #define CONTROL_UNIT_H
 

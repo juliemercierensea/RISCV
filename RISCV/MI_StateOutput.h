@@ -1,4 +1,10 @@
-
+/*!
+ * \file MI_StateOutput.h
+ * \brief Second part of the state machine : updates the outputs according to the state we are currently in\n
+ * \author Julie Mercier
+ * \version 0.1
+ * \date  July 5th 2022\n
+ */
 #ifndef MI_STATEOUTPUT_H
 #define MI_STATEOUTPUT_H
 #include <systemc.h>

@@ -1,3 +1,7 @@
+/*!
+ * \file test_MemInt.cpp
+ * \brief testbench of the memory interface
+ */
 #include<systemc.h>
 #include "Memory_Interface.h"
 #include "trace.h"

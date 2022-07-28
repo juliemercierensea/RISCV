@@ -1,3 +1,7 @@
+/*!
+ * \file test_PWDATA.cpp
+ * \brief testbench of the bloc PWDATA
+ */
 #include<systemc.h>
 #include "B_PWDATA.h"
 #include "trace.h"

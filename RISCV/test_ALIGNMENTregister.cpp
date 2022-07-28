@@ -1,3 +1,7 @@
+/*!
+ * \file test_ALIGNMENTregister.cpp
+ * \brief testbench of ALIGNMENTregister
+ */
 #include<systemc.h>
 #include "MI_registre.h"
 #include "trace.h"

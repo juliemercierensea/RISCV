@@ -1,3 +1,11 @@
+/*!
+ * \file B_PSTRB.h
+ * \brief Bloc gathering and binding all the elements producing the output PSTRB in the memory interface\n
+ * \author Julie Mercier
+ * \version 0.1
+ * \date  July 18th 2022\n
+ * This is also where we create the vcd file associated to PSTRB and its internal signals \n
+ */
 #ifndef B_PSTRB_H
 #define B_PSTRB_H
 #include <systemc.h>
@@ -35,7 +43,6 @@ SC_MODULE(blocPSTRB){
     sc_signal<sc_lv<8>> out1tomux{"out1tomux"};
     sc_signal<sc_lv<8>> out2tomux{"out2tomux"};
     sc_signal<sc_lv<8>> out3tomux{"out3tomux"};
-    //sc_signal<sc_lv<8>> muxtobyte{"muxtobyte"};
     sc_signal<sc_lv<1>> OR_to_reg{"ORtoREG"};
     sc_signal<sc_lv<4>> bytestrb_7to4{"bytestrb_7to4"};
     sc_signal<sc_lv<8>> BYTESTRB{"BYTESTRB"};

@@ -1,14 +1,26 @@
+/*!
+ * \file AMBA_Slave_InstructionMem.h
+ * \brief It's the first slave ie the instruction memory\n
+ * \author Julie Mercier
+ * \version 0.1
+ * \date  June 18th 2022\n
+ * The instruction memory doesn't depend on the reset. We import a hex file to fill a table (contents[256]) with
+ * all the instructions so that we can access the value of PRDATA associated to the value of PADDR.\n
+ * **enable2ready** is a function created just to copy the value of PENABLE in PREADY, it can't be done in the decodeHex function because of it's sensitivity. \n
+ * **PSTRB** indicates wether to copy( and use) the first, second, third, fourth bytes or none of the contents table.\n
+ * ** Make sure to put the hex file in the "build" folder of the project** \n
+ */
+
+
 #ifndef AMBA_SLAVE_INSTRUCTIONMEM_H
 #define AMBA_SLAVE_INSTRUCTIONMEM_H
 #include <systemc.h>
-//#include "IHex.cpp"
 #include "IHex.h"
 #include "trace.h"
 
 SC_MODULE (scIMEM) {
 
     // ---------------------      Ports      ---------------------
-
     sc_in_clk            PCLK{"clock_i"};
     sc_in<sc_lv<8>>      PADDR{"PADDR"};
     sc_in<sc_lv<4>>      PSTRB{"PSTRB"};

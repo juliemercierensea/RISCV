@@ -1,3 +1,10 @@
+/*!
+ * \file iPC_Control.h
+ * \brief This comes after the control unit and write iPC only if waitMem or memBusy are set to 0, else iPC =0.\n
+ * \author Julie Mercier
+ * \version 0.1
+ * \date  July 25th 2022\n
+ */
 #ifndef IPC_CONTROL_H
 #define IPC_CONTROL_H
 #include <systemc.h>

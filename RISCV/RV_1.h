@@ -1,3 +1,12 @@
+/*!
+ * \file RV_1.h
+ * \brief Gather and bind all the elements of the RV_1 : the multiplexers, RegFile, ALU, PC, memory interface and IMM_IR_CU.
+ * \author Julie Mercier
+ * \version 0.1
+ * \date July 28th 2022
+ * This is also where we create the vcd file associated to the internal signals of the RV_1 part.\n
+ *
+ */
 #ifndef RV_1_H
 #define RV_1_H
 #include <systemc.h>
@@ -170,7 +179,7 @@ SC_MODULE(RV_1){
         sc_trace(wf,WRMEM,"WRMEM");
         sc_trace(wf,Address_to_MEM,"Address_to_MEM");
         sc_trace(wf,func3,"func3");
-        sc_trace(wf,Value_to_DMEM,"Value_to_DMEM");
+        sc_trace(wf,Value_to_DMEM,"Value_to_DMEM_rs2value");
         sc_trace(wf,Value_from_IMEM,"Value_from_IMEM");
         sc_trace(wf,sel1PC,"sel1PC");
         sc_trace(wf,sel2PC,"sel2PC");
@@ -187,9 +196,10 @@ SC_MODULE(RV_1){
         sc_trace(wf,J_imm,"J_imm");
         sc_trace(wf,rs1,"rs1");
         sc_trace(wf,rs2,"rs2");
+        sc_trace(wf,rd,"rd");
         sc_trace(wf,rd_value,"rd_value");
         sc_trace(wf,Address_to_IMEM,"Address_to_IMEM");
-        sc_trace(wf,Address_to_DMEM,"Address_to_DMEM");
+        sc_trace(wf,Address_to_DMEM,"Address_to_DMEM_ALUvalue");
         sc_trace(wf,memBusy,"memBusy");
         sc_trace(wf,rs1_value,"rs1_value");
         sc_trace(wf,rd_value,"rd_value");

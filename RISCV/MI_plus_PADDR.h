@@ -1,4 +1,11 @@
-
+/*!
+ * \file MI_plus_PADDR.h
+ * \brief add 1 to the input\n
+ * \author Julie Mercier
+ * \version 0.1
+ * \date  July 9th 2022\n
+ *
+ */
 #ifndef MI_PLUS_PADDR_H
 #define MI_PLUS_PADDR_H
 #include<systemc.h>

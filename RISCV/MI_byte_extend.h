@@ -1,4 +1,11 @@
-
+/*!
+ * \file MI_byte_extend.h
+ * \brief extends the input taking into account the fact that it's signed or unsigned.The input is a byte and we extends it to make it 32 wide\n
+ * \author Julie Mercier
+ * \version 0.1
+ * \date  July 8th 2022\n
+ *
+ */
 #ifndef MI_BYTE_EXTEND_H
 #define MI_BYTE_EXTEND_H
 #include<systemc.h>

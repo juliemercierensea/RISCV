@@ -1,3 +1,13 @@
+/*!
+ * \file IMMEDIATE.h
+ * \brief extracts the value of I_imm, U_imm, J_imm, B_imm and S_imm\n
+ * \author Julie Mercier
+ * \version 0.2
+ * \date  July 27th 2022\n
+ * The immediate outputs are signed numbers so that we must be careful to keep them signed according to the value of RI.\n
+ * To do so, we save the value of RI's MSB in an internal signal and if it's a 1, we set everything unused bit of I, s, U , B or J to 1.Else, we keep them to 0.\n
+ *
+ */
 #ifndef IMMEDIATE_H
 #define IMMEDIATE_H
 #include <systemc.h>

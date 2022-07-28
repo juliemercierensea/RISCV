@@ -1,3 +1,12 @@
+/*!
+ * \file MI_ORtrigger.h
+ * \brief Logical OR between the 2 inputs\n
+ * \author Julie Mercier
+ * \version 0.1
+ * \date  July 8th 2022\n
+ * \todo we could make it more general to be used in any design (only need to change the binds and the inputs/outputs names)\n
+ *
+ */
 #ifndef MI_ORTRIGGER_H
 #define MI_ORTRIGGER_H
 #include<systemc.h>

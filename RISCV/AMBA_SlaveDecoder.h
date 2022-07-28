@@ -1,3 +1,14 @@
+/*!
+ * \file AMBA_SlaveDecoder.h
+ * \brief This is the slave decoder of the AMBA\n
+ * \author Julie Mercier
+ * \version 0.1
+ * \date  June 20th 2022\n
+ */
+
+/*!
+ *  \todo make the ports directly adaptable with the value of A, S and LS instead of creating ports with the matching lenght \n
+ */
 #ifndef AMBA_SLAVEDECODER_H
 #define AMBA_SLAVEDECODER_H
 #include <systemc.h>

@@ -1,3 +1,7 @@
+/*!
+ * \file test_IMEM.cpp
+ * \brief testbench of IMEM (instruction memory)
+ */
 #include<systemc.h>
 #include "AMBA.h"
 #include "trace.h"

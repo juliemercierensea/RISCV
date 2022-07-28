@@ -1,3 +1,7 @@
+/*!
+ * \file test_B_PSTRB.cpp
+ * \brief testbench of B_PSTRB
+ */
 #include<systemc.h>
 #include "B_PSTRB.h"
 #include "trace.h"

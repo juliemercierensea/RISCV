@@ -1,3 +1,11 @@
+/*!
+ * \file B_PADDR.h
+ * \brief Bloc gathering and binding all the elements producing the output PADDR in the memory interface\n
+ * \author Julie Mercier
+ * \version 0.1
+ * \date  July 18th 2022\n
+ * This is also where we create the vcd file associated to PADDR and its internal signals \n
+ */
 #ifndef B_PADDR_H
 #define B_PADDR_H
 #include <systemc.h>

@@ -17,6 +17,7 @@
  */
 
 /*! \bug "warning 206 :vector contains 4-value logic" but the compilation works
+ *  \todo **implement the WritePC register** : this is the part which provides the value of wPC (Load) and linked to the flags froma the ALU.
  */
 
 #ifndef ADDRESSCOUNTER_H

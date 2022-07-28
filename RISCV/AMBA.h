@@ -1,3 +1,19 @@
+/*!
+ * \file AMBA.h
+ * \brief It's the part that gather all the elements of the design\n
+ * \author Julie Mercier
+ * \version 0.1
+ * \date  July 15th 2022\n
+ *  **Elements :**\n
+ *      - 1)RV_1 (the master)\n
+ *      - 2)the slave decoder \n
+ *      - 3)the instruction memory (slave 0)\n
+ *      - 4) the 2 multiplexers to determine the value of PRDATA and PREADY\n
+ */
+
+/*!
+ *  \todo **create and bind the Data memory (ie second slave)**
+ */
 #ifndef AMBA_H
 #define AMBA_H
 #include <systemc.h>

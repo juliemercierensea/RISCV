@@ -1,9 +1,10 @@
 /*!
  * \file mux2to1.h
- * \brief multiplexer 2 to 1 with a variable lenght N (as parameter) but not adapted to boolean (must define them as sc_lv<1>)
+ * \brief multiplexer 2 to 1 with a variable lenght N (as parameter) but not adapted to boolean (must define them as sc_lv<1>). This can be used in any other design.
  * \author Julie Mercier
  * \version 0.2
  * \date  28 June 2022\n
+ * \param[in] N : the lenght of the input (therefore output) signals, its default value is set to 32\n
  */
 
 #ifndef MUX2TO1_H

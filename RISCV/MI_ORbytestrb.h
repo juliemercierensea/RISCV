@@ -1,3 +1,11 @@
+/*!
+ * \file MI_ORbytestrb.h
+ * \brief the output is a 1 if any of the bites of the input is a 1\n
+ * \author Julie Mercier
+ * \version 0.1
+ * \date  July 8th 2022\n
+ *
+ */
 #ifndef MI_ORBYTESTRB_H
 #define MI_ORBYTESTRB_H
 #include <systemc.h>

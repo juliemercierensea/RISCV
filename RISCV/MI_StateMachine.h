@@ -1,4 +1,10 @@
-
+/*!
+ * \file MI_StateMachine.h
+ * \brief First part of the state machine : provides the current state the machine is in\n
+ * \author Julie Mercier
+ * \version 0.1
+ * \date  July 5th 2022\n
+ */
 #ifndef MI_STATEMACHINE_H
 #define MI_STATEMACHINE_H
 #include <systemc.h>

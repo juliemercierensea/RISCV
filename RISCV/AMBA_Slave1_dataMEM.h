@@ -1,4 +1,14 @@
+/*!
+ * \file AMBA_Slave1_dataMEM.h
+ * \brief It should be the data memory\n
+ * \author Julie Mercier
+ * \version 0.1
+ * \date  June 18th 2022\n
+ */
 
+/*!
+ *  \todo **everything** : only the signals have been created.
+ */
 #ifndef AMBA_SLAVE1_DATAMEM_H
 #define AMBA_SLAVE1_DATAMEM_H
 #include <systemc.h>

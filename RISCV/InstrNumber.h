@@ -1,6 +1,6 @@
 /*!
  * \file InstrNumber.h
- * \brief Uses the opcodes to produce write the adresse of the instruction to be executed in INUM\n
+ * \brief Uses the opcodes to write the address of the instruction to be executed in INUM\n
  * \author Julie Mercier
  * \version 0.1
  * \date  25 May 2022\n

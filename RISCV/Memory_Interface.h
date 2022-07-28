@@ -1,3 +1,11 @@
+/*!
+ * \file Memory_Interface.h
+ * \brief Bloc gathering and binding all the elements of the memory Interface\n
+ * \author Julie Mercier
+ * \version 0.1
+ * \date  July 18th 2022\n
+ * This is also where we create the vcd file associated to the internal signals of the memory interface.\n
+ */
 #ifndef MEMORY_INTERFACE_H
 #define MEMORY_INTERFACE_H
 

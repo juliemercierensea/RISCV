@@ -1,4 +1,10 @@
-
+/*!
+ * \file MI_zeroextend.h
+ * \brief extends the input from 32 to 64 bits wide with 0\n\n
+ * \author Julie Mercier
+ * \version 0.1
+ * \date  July 5th 2022\n
+ */
 #ifndef MI_ZEROEXTEND_H
 #define MI_ZEROEXTEND_H
 #include <systemc.h>

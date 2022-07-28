@@ -1,3 +1,11 @@
+/*!
+ * \file IR.h
+ * \brief register which writes the Loadval in Val on the rising edge following the fact that wIR=1 and membusy=0\n
+ * \author Julie Mercier
+ * \version 0.1
+ * \date  July 11th 2022\n
+ *
+ */
 #ifndef IR_H
 #define IR_H
 #include <systemc.h>

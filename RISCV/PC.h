@@ -1,3 +1,11 @@
+/*!
+ * \file PC.h
+ * \brief bloc gathering and binding the elements of the PC : the PC register, the target add and the multiplexer.
+ * \author Julie Mercier
+ * \version 0.1
+ * \date July 29th 2022
+ * \todo Add the writePC design to complete the global PC design.
+ */
 #ifndef PC_H
 #define PC_H
 #include <systemc.h>

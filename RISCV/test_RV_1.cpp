@@ -1,3 +1,7 @@
+/*!
+ * \file test_RV_1.cpp
+ * \brief testbench of the bloc RV_1
+ */
 #include<systemc.h>
 #include "RV_1.h"
 #include "trace.h"

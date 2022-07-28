@@ -1,3 +1,10 @@
+/*!
+ * \file fetching_size.h
+ * \brief writes teh correct value of size : if we are currently fetching, size must be equal to 0b11, else size is the first 2 bits of funct3 from RI\n
+ * \author Julie Mercier
+ * \version 0.1
+ * \date  July 18th 2022\n
+ */
 #ifndef FETCHING_SIZE_H
 #define FETCHING_SIZE_H
 #include <systemc.h>

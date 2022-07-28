@@ -3,7 +3,7 @@
  * \brief PC register acts like an up counter (+4 instead of +1) when Inc is set to 1 (this must be the test with the higher priority level)
  * \author Julie Mercier
  * \version 0.1
- * \date  16 June 2022\n
+ * \date June 16th 2022\n
  */
 
 #ifndef PCREGISTER_H
@@ -32,7 +32,6 @@ SC_MODULE (scPCregister) {
     void PClogic() {
 
         while(1){
-            //Count.write(0); //on initialise
 
             if (RST.read() == 0) {
                 Count.write(0); // on réinitialise

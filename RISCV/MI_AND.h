@@ -1,4 +1,11 @@
-
+/*!
+ * \file MI_AND.h
+ * \brief logical AND between two operands\n
+ * \author Julie Mercier
+ * \version 0.1
+ * \date  July 13th 2022\n
+ *
+ */
 #ifndef MI_AND_H
 #define MI_AND_H
 #include<systemc.h>

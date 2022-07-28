@@ -1,17 +1,10 @@
 /*!
  * \file mux4to1.h
- * \brief Multiplexer 4 to 1 with a variable lenght N of input and output
+ * \brief Multiplexer 3 to 1 with a variable lenght N of input and output.This can be used in any other design.
  * \author Julie Mercier
  * \version 0.1
  * \date 28 June 2022
- * \n
- *  - i0 is \n
- *  - i1 is \n
- *  - i2 is \n
- *  - i3 is \n
- *  - sel is \n
- *  - res is \n
- *  \param[in] N : the lenght of the input (therefore output) signals, its default value is set to 32\n
+ * \param[in] N : the lenght of the input (therefore output) signals, its default value is set to 32\n
  */
 
 #ifndef MUX4TO1_H

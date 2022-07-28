@@ -1,14 +1,10 @@
 /*!
  * \file ROMmem.h
- * \brief   It is the ROM memory table:  it's a 256x32 table filled with all the operations to perform. One adress correspond to One operation.
+ * \brief  It is the ROM memory table:  it's a 256x32 table filled with all the operations to perform. One adress correspond to one operation.
  * \author Julie Mercier
  * \version 0.1
- * \date  2 June 2022
- */
-
-/*! \todo
- *  1) Check if it is working until the FENCE instruction, if yes then do 3)\n
- *  2) Fill the table with all the addresses and the corresponding operation\n
+ * \date  June 2nd 2022
+ * The table is filled with values from a XML file so you must put the XML file in the path or in the folder of the "build" of the project.
  */
 
 #ifndef ROMMEM_H
@@ -16,7 +12,6 @@
 #include <systemc.h>
 #include "xmlucrom.h"
 #include "trace.h"
-//#include "xmlucrom.cpp"
 
 SC_MODULE (scROM_Memory) {
     // ---------------------      Ports      ---------------------
