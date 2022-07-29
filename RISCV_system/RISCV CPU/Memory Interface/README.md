@@ -1,5 +1,6 @@
 Contains :
-  -testbench folder
+  - a pdf file "risc-v-memory-registered-interface-preliminar.pdf" with the schematic and the name of the signals used in the design.
+  - testbench folder
   - the blocs used to connect and bind the elements of the memory Interface :
       - B_PADDR
       - B_PSTRB
