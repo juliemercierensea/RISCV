@@ -1,9 +1,11 @@
 /*!
- * \file PC.h
- * \brief PC register acts like an up counter (+4 instead of +1) when Inc is set to 1 (this must be the test with the higher priority level)
+ * \file PCregister.h
+ * \brief PC register acts like an up counter (+4 instead of +1) when Inc is set to 1 (this must be the test with the higher priority level)\n
+ *        It's a low active reset.
  * \author Julie Mercier
  * \version 0.1
  * \date June 16th 2022\n
+ * \todo : implement the part with the jumps and branches and make the links
  */
 
 #ifndef PCREGISTER_H

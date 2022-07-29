@@ -1,5 +1,5 @@
 /*!
- * \file ALU.h
+ * \file ALU_register.h
  * \brief Arithmetic Logic Unit of the RISC-V design
  * \author Julie Mercier
  * \version 0.1

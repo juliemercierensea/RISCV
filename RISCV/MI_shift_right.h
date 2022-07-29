@@ -1,11 +1,10 @@
 /*!
- * \file MI_shiftright.h
+ * \file MI_shift_right.h
  * \brief general implementation of a shiftright, can be used in any design\n
+ *        We can chose both the shift amount and the size of the signal\n
  * \author Julie Mercier
  * \version 0.1
  * \date  July 8th 2022\n
- * We can chose both the shift amount and the size of the signal\n
- *
  */
 #ifndef MI_SHIFT_RIGHT_H
 #define MI_SHIFT_RIGHT_H

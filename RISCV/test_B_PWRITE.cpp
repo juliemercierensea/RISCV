@@ -1,7 +1,8 @@
 /*!
- * \file test_P_WRITE.cpp
+ * \file test_B_PWRITE.cpp
  * \brief testbench of P_WRITE
  */
+
 #include<systemc.h>
 #include "B_PWRITE.h"
 #include "trace.h"

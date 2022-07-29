@@ -25,12 +25,14 @@ SOURCES += \
         #test_ControlUnit.cpp \
         #test_RV_1.cpp \
         #test_B_PSTRB.cpp \
+        #test_ALU.cpp \
         #test_B_PWRITE.cpp \
         #test_BPADDR.cpp \
         #test_PWDATA.cpp \
         #test_rdata_o.cpp \
         test_AMBA.cpp \
         #test_IMM_IR_CU.cpp \
+        #test_RegFile.cpp \
         xmlucrom.cpp
 
 # Default rules for deployment.
