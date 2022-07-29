@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+<fields>
+
+<field name="OPCODE" width="7" pos="0">
+	<decode name="LOAD"     value="0000011b"/>
+	<decode name="MISC-MEM" value="0001111b"/>
+	<decode name="OP-IMM"   value="0010011b"/>
+	<decode name="AUIPC"    value="0010111b"/>
+	<decode name="STORE"    value="0100011b"/>
+	<decode name="OP"       value="0110011b"/>
+	<decode name="LUI"      value="0110111b"/>
+	<decode name="BRANCH"   value="1100011b"/>
+	<decode name="JALR"     value="1100111b"/>
+	<decode name="JAL"      value="1101111b"/>
+	<decode name="SYSTEM"   value="1110011b"/>
+	<decode name="CUSTOM-0" value="0001011b"/>
+	<decode name="CUSTOM-1" value="0101011b"/>
+	<decode name="CUSTOM-2" value="1011011b"/>
+	<decode name="CUSTOM-3" value="1111011b"/>
+</field>
+
+<field name="FUNCT3" width="3" pos="12">
+	<decode name="FENCE"    value="000b"/>
+	<decode name="ECALL"    value="000b"/>
+	<decode name="EBREAK"   value="000b"/>
+	<decode name="ADDI"     value="000b"/>
+	<decode name="ADD"      value="000b"/>
+	<decode name="SUB"      value="000b"/>
+	<decode name="LB"       value="000b"/>
+	<decode name="SB"       value="000b"/>
+	<decode name="BEQ"      value="000b"/>
+	<decode name="CUSTOM-0" value="000b"/>
+	
+	<decode name="SLLI"     value="001b"/>
+	<decode name="SLL"      value="001b"/>
+	<decode name="LH"       value="001b"/>
+	<decode name="SH"       value="001b"/>
+	<decode name="BNE"      value="001b"/>
+	<decode name="CUSTOM-1" value="001b"/>
+	
+	<decode name="SLTI"     value="010b"/>
+	<decode name="SLT"      value="010b"/>
+	<decode name="LW"       value="010b"/>
+	<decode name="SW"       value="010b"/>
+	<decode name="CUSTOM-2" value="010b"/>
+	
+	<decode name="SLTIU"    value="011b"/>
+	<decode name="SLTU"     value="011b"/>
+	<decode name="CUSTOM-3" value="011b"/>
+
+	<decode name="XORI"     value="100b"/>
+	<decode name="XOR"      value="100b"/>
+	<decode name="LBU"      value="100b"/>
+	<decode name="BLT"      value="100b"/>
+	<decode name="CUSTOM-4" value="100b"/>
+	
+	<decode name="SRLI"     value="101b"/>
+	<decode name="SRAI"     value="101b"/>
+	<decode name="LHU"      value="101b"/>
+	<decode name="SRL"      value="101b"/>
+	<decode name="SRA"      value="101b"/>
+	<decode name="BGE"      value="101b"/>
+	<decode name="CUSTOM-5" value="101b"/>
+
+	<decode name="ORI"      value="110b"/>
+	<decode name="OR"       value="110b"/>
+	<decode name="BLTU"     value="110b"/>
+	<decode name="CUSTOM-6" value="110b"/>
+
+	<decode name="ANDI"     value="111b"/>
+	<decode name="AND"      value="111b"/>
+	<decode name="BGEU"     value="111b"/>	
+	<decode name="CUSTOM-7" value="111b"/>
+</field>
+
+<field name="FUNCT7_5" width="1" pos="30">
+	<decode name="SRLI"     value="0b"/>
+	<decode name="SRAI"     value="1b"/>
+	<decode name="SRL"      value="0b"/>
+	<decode name="SRA"      value="1b"/>
+	<decode name="ADD"      value="0b"/>
+	<decode name="SUB"      value="1b"/>
+</field>
+
+<field name="FUNCT12_0" width="1" pos="20">
+	<decode name="ECALL"    value="0b"/>
+	<decode name="EBREAK"   value="1b"/>
+</field>
+
+</fields>
+
+<signals>
+	<signal name="EOI"      width="1" pos="31" />
+	<signal name="EOF"      width="1" pos="30" />
+	<signal name="fetching" width="1" pos="29" />
+	<signal name="sel1PC"   width="1" pos="21" />
+	<signal name="sel2PC"   width="1" pos="20" />
+	<signal name="JB"       width="1" pos="19" />
+	<signal name="XZ"       width="1" pos="18" />
+	<signal name="XN"       width="1" pos="17" />
+	<signal name="XF"       width="1" pos="16" />
+	<signal name="sel1ALU"  width="1" pos="14" />
+	<signal name="sel2ALU"  width="2" pos="12" />
+	<signal name="selOpALU" width="4" pos="8" />
+	<signal name="wRD"      width="1" pos="7" />
+	<signal name="selRD"    width="1" pos="6" />
+	<signal name="iPC"      width="1" pos="5" />
+	<signal name="wIR"      width="1" pos="4" />
+	<signal name="WR"       width="1" pos="3" />
+	<signal name="RD"       width="1" pos="2" />
+	<signal name="IDMEM"    width="1" pos="1" />
+	<signal name="waitMEM"  width="1" pos="0" />
+</signals>
+
+<ucontrol depth="256" width="32" blocksize="4"  default="EOI" >
+<block pos="0" name="_fetch_"   decode="" >
+	<entry name="_fetch_,0"        signals="RD,fetching" />
+	<entry name="_fetch_,1"        signals="EOF, wIR,waitMEM, iPC,fetching" />
+	<entry name="_fetch_,2"        signals="EOI" />
+	<entry name="_fetch_,3"        signals="" />
+</block>
+<block pos="1" name="fence"     decode="OPCODE=MISC-MEM,funct3=FENCE" >
+	<entry name="fence,0"          signals="" />
+	<entry name="fence,1"                     />
+</block>
+<block pos="2" name="load(any)" decode="OPCODE=LOAD" >
+	<entry name="load(any),0"      signals="EOI=0b" />
+	<entry name="load(any),1"      signals="sel2ALU=01b,RD,IDMEM" />
+	<entry name="load(any),2"      signals="waitMEM,IDMEM" />
+	<entry name="load(any),3"      signals="EOI,selRD,wRD" />
+</block>
+<block pos="3" name="store(any)" decode="OPCODE=STORE" >
+	<entry name="store(any),0"      signals="EOI=0b" />
+	<entry name="store(any),1"      signals="sel2ALU=11b,WR,IDMEM" />
+	<entry name="store(any),2"      signals="EOI,waitMEM,IDMEM" />
+</block>
+<block pos="4" name="auipc"      decode="OPCODE=AUIPC" >
+</block>
+<block pos="5" name="lui"        decode="OPCODE=LUI" >
+</block>
+<block pos="6" name="jalr"       decode="OPCODE=JALR" >
+</block>
+<block pos="7" name="jal"        decode="OPCODE=JAL" >
+</block>
+
+<block pos="16" name="addi"        decode="OPCODE=OP-IMM,FUNCT3=ADDI" >
+	<entry name="addi,0"      signals="EOI=0b" />
+	<entry name="addi,1"      signals="sel2ALU=01b,wRD,selOpALU=01b" />
+</block>
+
+
+
+</ucontrol>
+
+</configuration>
